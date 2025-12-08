@@ -55,7 +55,9 @@ Suggests:
     pdftools,
     officer,
     plotly,
-    htmlwidgets
+    htmlwidgets,
+    randomForest,
+    ggplot2
 Remotes:
     posit-dev/shinychat/pkg-r,
     tidyverse/ellmer,

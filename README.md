@@ -22,6 +22,7 @@
 - **Real-Time Streaming** - Fast, smooth responses with terminal-style events
 - **Smart Data Loading** - One-click CSV/Excel upload and auto-load
 - **Error Recovery** - Automatic retry logic, graceful timeout handling
+- **Agriculture Analytics** - Random Forest ML for soil, livestock, and crop predictions
 
 ### 🚀 Performance
 - **100+ chars/sec streaming** - 5x faster than before
@@ -185,6 +186,77 @@ Click **"Optimize"** to get suggestions for:
 - data.table/dplyr improvements
 - Parallel processing
 - Memory efficiency
+
+## 🌾 Random Forest for Agriculture Analytics
+
+Rflow now includes specialized Random Forest machine learning tools designed specifically for agriculture applications:
+
+### Soil Analysis
+```r
+# Classify soil fertility (Low/Medium/High)
+soil_data <- generate_ag_data("soil", n = 200)
+result <- rf_soil_analysis(
+  data = soil_data,
+  target = "fertility",
+  task_type = "classification"
+)
+
+# Predict NPK levels
+npk_result <- rf_soil_analysis(
+  data = soil_data,
+  target = "nitrogen",
+  task_type = "regression"
+)
+```
+
+### Poultry & Fish Farming
+```r
+# Forecast egg production
+poultry_data <- generate_ag_data("poultry", n = 250)
+egg_result <- rf_poultry_fish(
+  data = poultry_data,
+  target = "egg_production",
+  farm_type = "poultry"
+)
+
+# Predict fish growth
+fish_data <- generate_ag_data("fish", n = 180)
+fish_result <- rf_poultry_fish(
+  data = fish_data,
+  target = "weight_gain_g",
+  farm_type = "fish"
+)
+```
+
+### Crop & Disease Management
+```r
+# Classify crop diseases
+disease_data <- generate_ag_data("disease", n = 300)
+disease_result <- rf_agronomy(
+  data = disease_data,
+  target = "disease",
+  task_type = "classification"
+)
+
+# Predict crop yield
+yield_data <- generate_ag_data("yield", n = 200)
+yield_result <- rf_agronomy(
+  data = yield_data,
+  target = "yield_kg_ha",
+  task_type = "regression"
+)
+```
+
+### Visualization Tools
+```r
+# Plot variable importance
+plot_rf_importance(result, top_n = 8)
+
+# Plot predictions vs actual
+plot_rf_predictions(result)
+```
+
+**See [RANDOM_FOREST_AGRICULTURE.md](RANDOM_FOREST_AGRICULTURE.md) for complete documentation and examples.**
 
 ## 🎓 Key Commands
 
