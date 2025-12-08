@@ -39,17 +39,36 @@
 
 ## 📦 Installation
 
-### Simple Installation (Recommended)
+### Method 1: Direct Download (Recommended - Always Works!)
 
-Just copy and paste this into your R console:
+If you get GitHub API errors, use this method (100% reliable):
 
 ```r
-# Step 1: Install remotes (if you don't have it)
+# Copy and paste this entire block:
+download.file(
+  "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
+  "Rflow.zip",
+  mode = "wb"
+)
+unzip("Rflow.zip")
+devtools::install("RflowLabs-main")
+```
+
+### Method 2: Standard GitHub Install
+
+```r
+# Install remotes (if needed)
 install.packages("remotes")
 
-# Step 2: Install Rflow from GitHub
+# Install Rflow from GitHub
+remotes::install_github("carlychery2001/RflowLabs")
+
+# If the above fails, try:
+options(download.file.method = "wininet")
 remotes::install_github("carlychery2001/RflowLabs")
 ```
+
+**Having issues?** See [INSTALL.md](INSTALL.md) for permanent solutions.
 
 ### Install Specific Version
 
