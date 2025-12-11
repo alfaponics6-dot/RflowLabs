@@ -25,10 +25,10 @@ setup_claude_client <- function() {
 
   # Create client with Claude Sonnet 4.5
   # ellmer 0.4.0+ requires credentials as a function that returns the API key
-  # This ensures the key is available even in background jobs
+  # Read from environment so it works in background jobs where env var is set
   client <- ellmer::chat_anthropic(
     model = "claude-sonnet-4-5",
-    credentials = function() api_key
+    credentials = function() Sys.getenv("ANTHROPIC_API_KEY")
   )
   options(rflow.client = client)
   return(client)

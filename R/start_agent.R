@@ -128,10 +128,20 @@ create_app_file <- function(env_url, client, use_custom = FALSE) {
 
 run_in_background <- function(app_dir, job_name, host, port) {
   job_script <- tempfile(fileext = ".R")
-  writeLines(
-    glue::glue("shiny::runApp(appDir = '{app_dir}', port = {port}, host = '{host}')"),
-    job_script
-  )
+
+  # Get API key from current session to pass to background job
+  api_key <- Sys.getenv("ANTHROPIC_API_KEY", "")
+
+  # Create script that sets environment variable before running app
+  script_content <- glue::glue('
+    # Set API key in background job environment
+    Sys.setenv(ANTHROPIC_API_KEY = "{api_key}")
+
+    # Run Shiny app
+    shiny::runApp(appDir = "{app_dir}", port = {port}, host = "{host}")
+  ')
+
+  writeLines(script_content, job_script)
   rstudioapi::jobRunScript(job_script, name = job_name)
 }
 
