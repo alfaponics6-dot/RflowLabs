@@ -45,6 +45,7 @@ If you get GitHub API errors, use this method (100% reliable):
 
 ```r
 # Copy and paste this entire block:
+options(timeout = 300)  # 5 minutes
 download.file(
   "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
   "Rflow.zip",

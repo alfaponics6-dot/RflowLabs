@@ -11,6 +11,7 @@ If you're getting `download from 'https://api.github.com/repos/...' failed` erro
 
 # 1. Download ZIP
 temp_zip <- tempfile(fileext = ".zip")
+options(timeout = 300)  # 5 minutes
 download.file(
   "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
   temp_zip,
@@ -78,6 +79,7 @@ Save this as `install_rflow.R`:
 ```r
 install_rflow <- function() {
   temp_zip <- tempfile(fileext = ".zip")
+  options(timeout = 300)  # 5 minutes
   download.file(
     "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
     temp_zip,
@@ -109,6 +111,7 @@ Update your README with:
 Download and install directly:
 
 \```r
+options(timeout = 300)  # 5 minutes
 download.file(
   "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
   "Rflow.zip",
@@ -215,6 +218,7 @@ remotes::install_github("carlychery2001/RflowLabs")
 
 ```r
 # One command that ALWAYS works:
+options(timeout = 300)  # 5 minutes
 download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb")
 unzip("Rflow.zip")
 devtools::install("RflowLabs-main")

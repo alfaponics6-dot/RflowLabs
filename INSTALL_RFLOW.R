@@ -49,6 +49,7 @@ install_rflow <- function() {
 
     # Download ZIP
     cat("Downloading ZIP file...\n")
+    options(timeout = 300)  # 5 minutes
     download.file(
       url = "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
       destfile = zip_file,
