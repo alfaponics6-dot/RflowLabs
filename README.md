@@ -441,6 +441,29 @@ Sys.setenv(ANTHROPIC_API_KEY = "your-key")
 Sys.getenv("ANTHROPIC_API_KEY")
 ```
 
+### "HTTP 401 Unauthorized" or "invalid x-api-key"
+
+**Most common cause:** Hidden whitespace or formatting characters in your API key
+
+```r
+# ❌ WRONG - May include hidden characters from copy/paste
+Sys.setenv(ANTHROPIC_API_KEY = " sk-ant-api03-...")  # Leading space
+
+# ✅ CORRECT - Clean, direct assignment
+Sys.setenv(ANTHROPIC_API_KEY = "sk-ant-api03-...")
+```
+
+**Solution:**
+1. Get a fresh API key from https://console.anthropic.com/settings/keys
+2. Copy it carefully (avoid selecting extra spaces)
+3. Set it using `Sys.setenv()` directly - don't paste from colored console output
+4. Verify it's clean: `cat(Sys.getenv("ANTHROPIC_API_KEY"))`
+
+**If still failing:**
+- Check that billing is configured in your Anthropic account
+- Verify you haven't exceeded API rate limits
+- Ensure the API key hasn't been revoked
+
 ### "Stream interrupted"
 - Check internet connection
 - Break request into smaller parts
