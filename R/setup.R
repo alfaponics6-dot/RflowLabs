@@ -13,7 +13,7 @@ setup_client <- function(client = NULL, call = rlang::caller_env()) {
 setup_claude_client <- function() {
   # Get API key from environment
   api_key <- Sys.getenv("ANTHROPIC_API_KEY", "")
-  
+
   if (nchar(api_key) == 0) {
     stop(
       "Claude API key not found!\n\n",
@@ -22,9 +22,12 @@ setup_claude_client <- function() {
       "Get your API key from: https://console.anthropic.com/\n"
     )
   }
-  
-  # Create client with Claude Sonnet 4.5 (matches model in agents/main.md)
-  client <- ellmer::chat_anthropic(model = "claude-sonnet-4-5")
+
+  # Create client with Claude Sonnet 4.5 and API key
+  client <- ellmer::chat_anthropic(
+    model = "claude-sonnet-4-5",
+    api_key = api_key
+  )
   options(rflow.client = client)
   return(client)
 }
