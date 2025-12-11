@@ -133,15 +133,19 @@ run_in_background <- function(app_dir, job_name, host, port) {
   api_key <- Sys.getenv("ANTHROPIC_API_KEY", "")
 
   # Create script that sets environment variable before running app
-  script_content <- glue::glue('
-    # Set API key in background job environment
-    Sys.setenv(ANTHROPIC_API_KEY = "{api_key}")
+  # Use cat() to write the key safely without glue interpolation issues
+  script_lines <- c(
+    "# Set API key in background job environment",
+    sprintf('Sys.setenv(ANTHROPIC_API_KEY = "%s")', api_key),
+    "",
+    "# Verify API key is set",
+    sprintf('cat("API key set in job: ", substr(Sys.getenv("ANTHROPIC_API_KEY"), 1, 20), "...\\n")'),
+    "",
+    "# Run Shiny app",
+    sprintf('shiny::runApp(appDir = "%s", port = %d, host = "%s")', app_dir, port, host)
+  )
 
-    # Run Shiny app
-    shiny::runApp(appDir = "{app_dir}", port = {port}, host = "{host}")
-  ')
-
-  writeLines(script_content, job_script)
+  writeLines(script_lines, job_script)
   rstudioapi::jobRunScript(job_script, name = job_name)
 }
 

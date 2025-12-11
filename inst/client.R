@@ -24,6 +24,13 @@ tryCatch({
 working_dir <- '{{working_dir}}'
 cat("Working directory:", working_dir, "\n")
 
+# Debug: Check if API key is available in background job
+api_key_present <- nchar(Sys.getenv("ANTHROPIC_API_KEY", "")) > 0
+cat("API key present in job environment:", api_key_present, "\n")
+if (api_key_present) {
+  cat("API key prefix:", substr(Sys.getenv("ANTHROPIC_API_KEY"), 1, 15), "...\n")
+}
+
 client <- readRDS('{{client_path}}')
 cat("Client loaded (with tools already set)\n")
 
