@@ -23,12 +23,10 @@ setup_claude_client <- function() {
     )
   }
 
-  # Create client with Claude Sonnet 4.5 and API key
-  # Use 'credentials' instead of deprecated 'api_key' (ellmer 0.4.0+)
-  client <- ellmer::chat_anthropic(
-    model = "claude-sonnet-4-5",
-    credentials = api_key
-  )
+  # Create client with Claude Sonnet 4.5
+  # ellmer 0.4.0+ automatically reads ANTHROPIC_API_KEY from environment
+  # so we don't need to pass credentials explicitly
+  client <- ellmer::chat_anthropic(model = "claude-sonnet-4-5")
   options(rflow.client = client)
   return(client)
 }
