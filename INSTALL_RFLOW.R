@@ -8,19 +8,22 @@ cat("\n")
 cat("================================================================================\n")
 cat("RFLOW - PERMANENT INSTALLATION SCRIPT\n")
 cat("================================================================================\n\n")
+cat("⚠️  NOTE: This script sets timeout to 300 seconds (5 minutes)\n")
+cat("   to prevent 'Timeout of 60 seconds' errors on slow connections.\n\n")
 
 install_rflow <- function() {
 
   # Method 1: Try different download methods
   cat("METHOD 1: Trying different download methods...\n")
   cat("----------------------------------------------\n")
+  cat("Setting timeout to 300 seconds (5 minutes)...\n")
 
   methods <- c("libcurl", "wininet", "wget", "curl")
 
   for (method in methods) {
     cat("Trying download method:", method, "...\n")
     options(download.file.method = method)
-    options(timeout = 300)  # 5 minutes
+    options(timeout = 300)  # 5 minutes (prevents timeout errors)
 
     result <- tryCatch({
       remotes::install_github("carlychery2001/RflowLabs",

@@ -1,17 +1,26 @@
 # Permanent Installation Guide for Rflow
 
-If you're getting `download from 'https://api.github.com/repos/...' failed` errors, this is a **common GitHub API issue**. Here are **permanent solutions** that always work.
+If you're getting `download from 'https://api.github.com/repos/...' failed` errors or **"Timeout of 60 seconds was reached"**, this is a **common GitHub API issue**. Here are **permanent solutions** that always work.
 
-## 🚀 Quick Fix (Copy & Paste)
+## ⚡ FASTEST FIX - One Line Install
+
+**Copy this ENTIRE line** (includes timeout fix):
+
+```r
+options(timeout = 300); temp_zip <- tempfile(fileext = ".zip"); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", temp_zip, mode = "wb"); temp_dir <- tempdir(); unzip(temp_zip, exdir = temp_dir); pkg_dir <- file.path(temp_dir, "RflowLabs-main"); devtools::install(pkg_dir); library(Rflow)
+```
+
+## 🚀 Detailed Install (Copy & Paste)
 
 ### Method 1: Direct ZIP Download (Most Reliable)
 
 ```r
-# Copy and paste this entire block into R:
+# ⚠️ IMPORTANT: Copy ALL lines below INCLUDING the options() line!
+# Skipping options(timeout = 300) will cause "Timeout of 60 seconds" errors!
 
 # 1. Download ZIP
 temp_zip <- tempfile(fileext = ".zip")
-options(timeout = 300)  # 5 minutes
+options(timeout = 300)  # ← CRITICAL: Extends timeout to 5 minutes
 download.file(
   "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
   temp_zip,
