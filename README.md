@@ -44,13 +44,18 @@
 If you get GitHub API errors, use this method (100% reliable):
 
 ```r
-# ⚠️ COPY ALL LINES BELOW - Don't skip the options() line! ⚠️
-options(timeout = 300); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb"); unzip("Rflow.zip"); devtools::install("RflowLabs-main")
+# ⚠️ COPY ALL LINES BELOW - Includes automatic devtools installation! ⚠️
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb"); unzip("Rflow.zip"); devtools::install("RflowLabs-main")
 ```
 
-Or if you prefer multi-line (copy ALL lines including options):
+Or if you prefer multi-line (copy ALL lines):
 
 ```r
+# Auto-install devtools if needed
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
+
 options(timeout = 300)  # ← CRITICAL: Must include this line!
 download.file(
   "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
@@ -64,13 +69,16 @@ devtools::install("RflowLabs-main")
 ### Method 2: Standard GitHub Install
 
 ```r
-# Install remotes (if needed)
-install.packages("remotes")
+# Auto-install remotes if needed
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
 
-# Install Rflow from GitHub
+# Set timeout and install from GitHub
+options(timeout = 300)
 remotes::install_github("carlychery2001/RflowLabs")
 
-# If the above fails, try:
+# If the above fails, try different download method:
 options(download.file.method = "wininet")
 remotes::install_github("carlychery2001/RflowLabs")
 ```

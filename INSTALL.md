@@ -4,10 +4,10 @@ If you're getting `download from 'https://api.github.com/repos/...' failed` erro
 
 ## ⚡ FASTEST FIX - One Line Install
 
-**Copy this ENTIRE line** (includes timeout fix):
+**Copy this ENTIRE line** (auto-installs devtools + timeout fix):
 
 ```r
-options(timeout = 300); temp_zip <- tempfile(fileext = ".zip"); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", temp_zip, mode = "wb"); temp_dir <- tempdir(); unzip(temp_zip, exdir = temp_dir); pkg_dir <- file.path(temp_dir, "RflowLabs-main"); devtools::install(pkg_dir); library(Rflow)
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); temp_zip <- tempfile(fileext = ".zip"); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", temp_zip, mode = "wb"); temp_dir <- tempdir(); unzip(temp_zip, exdir = temp_dir); pkg_dir <- file.path(temp_dir, "RflowLabs-main"); devtools::install(pkg_dir); library(Rflow)
 ```
 
 ## 🚀 Detailed Install (Copy & Paste)
@@ -15,8 +15,12 @@ options(timeout = 300); temp_zip <- tempfile(fileext = ".zip"); download.file("h
 ### Method 1: Direct ZIP Download (Most Reliable)
 
 ```r
-# ⚠️ IMPORTANT: Copy ALL lines below INCLUDING the options() line!
-# Skipping options(timeout = 300) will cause "Timeout of 60 seconds" errors!
+# ⚠️ IMPORTANT: Copy ALL lines below INCLUDING the devtools and options() lines!
+
+# 0. Auto-install devtools if needed
+if (!requireNamespace("devtools", quietly = TRUE)) {
+  install.packages("devtools")
+}
 
 # 1. Download ZIP
 temp_zip <- tempfile(fileext = ".zip")
@@ -42,6 +46,14 @@ library(Rflow)
 ### Method 2: Use Different Download Method
 
 ```r
+# Auto-install remotes if needed
+if (!requireNamespace("remotes", quietly = TRUE)) {
+  install.packages("remotes")
+}
+
+# Set timeout
+options(timeout = 300)
+
 # Try wininet (Windows)
 options(download.file.method = "wininet")
 remotes::install_github("carlychery2001/RflowLabs")
