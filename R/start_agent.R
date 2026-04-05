@@ -256,6 +256,15 @@ stop_rflow <- function() {
     cli::cli_alert_warning("Could not stop background job: {conditionMessage(e)}")
   })
 
+  # Shut down env tool server
+  tryCatch({
+    the$env_server_active <- FALSE
+    if (!is.null(the$env_server_socket)) {
+      close(the$env_server_socket)
+      the$env_server_socket <- NULL
+    }
+  }, error = function(e) NULL)
+
   # Clean up temporary files
   cleanup_rflow_temp()
 
