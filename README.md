@@ -16,6 +16,7 @@
 
 ### Core Capabilities
 - **AI-Powered Analysis** - Claude Sonnet 4.5 with 1730+ expert training prompts
+- **MCP Server** - Use all R tools from Claude Code with no API key (Max subscription works)
 - **R Internals Mastery** - Direct access to R 4.5.2 source code for deep understanding
 - **Publication-Level Plots** - 220 prompts dedicated to creating perfect visualizations
 - **Direct R Integration** - Execute code, read/write files, inspect environment
@@ -292,6 +293,105 @@ plot_rf_predictions(result)
 
 **See [docs/random-forest-agriculture.md](docs/random-forest-agriculture.md) for complete documentation and examples.**
 
+## MCP Server — Use Rflow from Claude Code (No API Key)
+
+Rflow includes a full **Model Context Protocol (MCP) server** that exposes all 16 R tools directly to Claude Code. Users on a Claude Max subscription can use every Rflow capability without ever setting up an Anthropic API key.
+
+### Setup (2 steps)
+
+**Step 1 — Create `.mcp.json` in your project root:**
+
+```json
+{
+  "mcpServers": {
+    "rflow": {
+      "command": "Rscript",
+      "args": ["-e", "Rflow::start_mcp_server()"]
+    }
+  }
+}
+```
+
+**Step 2 — Start Claude Code in that folder.** It auto-discovers `.mcp.json` and loads all tools.
+
+That's it. Claude Code now has full access to R through Rflow.
+
+### How it works
+
+```
+Claude Code  <--stdin/stdout JSON-RPC-->  Rscript -e "Rflow::start_mcp_server()"
+                                                   |
+                                         Rflow R tools execute directly
+                                         (run R code, analyze files, RF, etc.)
+```
+
+### 16 Available MCP Tools
+
+#### Code Execution
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `run_r_code` | `code`, `persist` | Execute any R code. Output, messages, warnings all captured. Plots saved to a temp PNG automatically. Set `persist=true` to run in the global environment. |
+
+#### File Operations
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `read_text_file` | `path` | Read the full contents of any text file |
+| `write_text_file` | `path`, `content` | Write or overwrite a file; parent directories created automatically |
+| `analyze_file` | `file_path` | Smart file analysis — CSV, Excel, JSON, RDS, RData, R scripts, PDF, Word, images, shapefiles, and plain text |
+
+#### File System
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `run_command` | `command`, `working_dir` | Execute a shell command and return its output |
+| `create_directory` | `path`, `recursive` | Create a directory (and parents if needed) |
+| `delete_path` | `path`, `recursive` | Delete a file or directory |
+| `copy_path` | `from`, `to`, `overwrite` | Copy a file or directory |
+| `move_path` | `from`, `to` | Move or rename a file or directory |
+| `list_directory` | `path`, `pattern`, `recursive` | List directory contents with type and size info |
+
+#### R Internals
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `search_r_source` | `pattern`, `path` | Regex search through R 4.5.2 C/R source code |
+| `get_r_internals_info` | `topic` | Documentation on R internals: `architecture`, `memory`, `evaluation`, `parser`, `graphics`, `common_bugs`, or `all` |
+| `find_r_function` | `func_name` | Locate where an R function is implemented (C or R level) |
+
+#### Machine Learning
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `rf_train` | `data_expr`, `target`, `task_type` | Train a Random Forest on any dataset. `data_expr` is an R expression string like `"iris"` or `"read.csv('data.csv')"`. Returns performance metrics and variable importance. |
+
+#### Workspace
+
+| Tool | Parameters | Description |
+|------|-----------|-------------|
+| `get_workspace_context` | — | Full workspace context: current folder, open files, folder structure |
+| `get_workspace_summary` | — | Concise human-readable workspace summary |
+
+### Example: Train a model from Claude Code
+
+Once `.mcp.json` is in place, just ask Claude Code:
+
+```
+"Train a Random Forest on iris to predict Species"
+"Read and summarize the file analysis_results.csv"
+"Run this R code: summary(lm(mpg ~ wt + cyl, data = mtcars))"
+"Search the R source for how do_subset is implemented"
+```
+
+Claude Code dispatches to Rflow automatically — no copy-pasting, no switching apps.
+
+### You still need an API key for the Shiny UI
+
+The Shiny chat interface (`start_rflow()`) requires an `ANTHROPIC_API_KEY`. The MCP server has no such requirement — the LLM is Claude Code itself.
+
+---
+
 ## Key Commands
 
 ### Quick Actions
@@ -400,9 +500,10 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 ### Architecture
 - **Frontend**: Shiny with custom CSS/JavaScript
 - **Backend**: R with socket-based tool execution
-- **AI**: Claude Sonnet 4.5 via Anthropic API
+- **AI**: Claude Sonnet 4.5 via Anthropic API (Shiny UI) or Claude Code via MCP (no key needed)
+- **MCP Server**: JSON-RPC 2.0 over stdin/stdout — `start_mcp_server()`
 - **Database**: SQLite for chat persistence
-- **Tools**: ellmer for LLM integration
+- **Tools**: ellmer for LLM integration; custom MCP registry for Claude Code
 
 ### Performance Optimizations
 - 100ms update intervals (vs 15ms) for smoother streaming
@@ -418,18 +519,16 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 
 ## Requirements
 
+### Shiny UI (`start_rflow()`)
 - **R >= 4.0**
 - **RStudio**
 - **Anthropic API key**
-- **R Packages** (auto-installed):
-  - shiny
-  - ellmer
-  - DBI
-  - RSQLite
-  - httr2
-  - cli
-  - glue
-  - jsonlite
+- **R Packages** (auto-installed): shiny, ellmer, DBI, RSQLite, httr2, cli, glue, jsonlite
+
+### MCP Server (`start_mcp_server()`)
+- **R >= 4.0**
+- **Claude Code** (any plan — Max subscription works without an API key)
+- No additional R packages beyond what Rflow already installs
 
 ## Billing
 
@@ -553,6 +652,6 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 **Built for the R community**
 
-**Powered by Claude Sonnet 4.5 | 1730 Expert Prompts | R 4.5.2 Source Code | Master-Level R Knowledge**
+**Powered by Claude Sonnet 4.5 | 1730 Expert Prompts | R 4.5.2 Source Code | MCP Server for Claude Code | Master-Level R Knowledge**
 
 **[Report Bug](https://github.com/alfaponics6-dot/RflowLabs/issues) | [Request Feature](https://github.com/alfaponics6-dot/RflowLabs/issues) | [View on GitHub](https://github.com/alfaponics6-dot/RflowLabs)**
