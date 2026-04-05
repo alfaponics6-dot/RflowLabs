@@ -122,49 +122,58 @@ remotes::install_github("alfaponics6-dot/RflowLabs", force = TRUE)
 
 ## Quick Start
 
-### 1. Get Your API Key
+Choose the option that fits you:
 
-Get your Claude API key from [Anthropic Console](https://console.anthropic.com/)
+---
 
-### 2. Set Up API Key
+### Option A — Claude Code (No API key needed)
 
-**Option A: For Current Session Only**
+If you have **Claude Code** (Max subscription works), this is the easiest path.
+
+**1. Create `.mcp.json` in your project root:**
+```json
+{
+  "mcpServers": {
+    "rflow": {
+      "command": "Rscript",
+      "args": ["-e", "Rflow::start_mcp_server()"]
+    }
+  }
+}
+```
+
+**2. Start Claude Code in that folder** — it auto-detects the file and loads all 16 R tools. Done.
+
+---
+
+### Option B — Shiny Chat UI in RStudio (API key required)
+
+**1. Get your API key** from [Anthropic Console](https://console.anthropic.com/)
+
+**2. Set up the API key**
+
+For the current session only:
 ```r
-# Set your API key (required)
 Sys.setenv(ANTHROPIC_API_KEY = "sk-ant-api03-your-key-here")
-
-# Verify it's set
-Sys.getenv("ANTHROPIC_API_KEY")
 ```
 
-**Option B: Permanent Setup (Recommended)**
+For permanent setup (recommended):
 ```r
-# Edit your .Renviron file
 usethis::edit_r_environ()
-
-# Add this line (replace with your actual key):
+# Add this line, save, then restart R:
 # ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
-
-# Save and restart R
 ```
 
-### 3. Launch Rflow
-
+**3. Launch Rflow**
 ```r
-# Load the package
 library(Rflow)
 
-# Start Rflow in RStudio viewer
-start_rflow()
-
-# Or open in browser (if viewer is busy with maps/plots)
-start_rflow(launch_in = "browser")
+start_rflow()                        # opens in RStudio viewer
+start_rflow(launch_in = "browser")   # opens in browser instead
 ```
 
-### 4. Stop Rflow
-
+**4. Stop Rflow**
 ```r
-# When you're done
 stop_rflow()
 ```
 
