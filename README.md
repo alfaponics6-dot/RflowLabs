@@ -122,13 +122,7 @@ remotes::install_github("alfaponics6-dot/RflowLabs", force = TRUE)
 
 ## Quick Start
 
-Choose the option that fits you:
-
----
-
-### Option A — Claude Code (No API key needed)
-
-If you have **Claude Code** (Max subscription works), this is the easiest path.
+### With Claude Code (Recommended)
 
 **1. Create `.mcp.json` in your project root:**
 ```json
@@ -144,27 +138,8 @@ If you have **Claude Code** (Max subscription works), this is the easiest path.
 
 **2. Start Claude Code in that folder** — it auto-detects the file and loads all 16 R tools. Done.
 
----
+### With the Shiny Chat UI in RStudio
 
-### Option B — Shiny Chat UI in RStudio (API key required)
-
-**1. Get your API key** from [Anthropic Console](https://console.anthropic.com/)
-
-**2. Set up the API key**
-
-For the current session only:
-```r
-Sys.setenv(ANTHROPIC_API_KEY = "sk-ant-api03-your-key-here")
-```
-
-For permanent setup (recommended):
-```r
-usethis::edit_r_environ()
-# Add this line, save, then restart R:
-# ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
-```
-
-**3. Launch Rflow**
 ```r
 library(Rflow)
 
@@ -172,8 +147,8 @@ start_rflow()                        # opens in RStudio viewer
 start_rflow(launch_in = "browser")   # opens in browser instead
 ```
 
-**4. Stop Rflow**
 ```r
+# When you're done
 stop_rflow()
 ```
 
@@ -395,10 +370,6 @@ Once `.mcp.json` is in place, just ask Claude Code:
 
 Claude Code dispatches to Rflow automatically — no copy-pasting, no switching apps.
 
-### You still need an API key for the Shiny UI
-
-The Shiny chat interface (`start_rflow()`) requires an `ANTHROPIC_API_KEY`. The MCP server has no such requirement — the LLM is Claude Code itself.
-
 ---
 
 ## Key Commands
@@ -509,7 +480,7 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 ### Architecture
 - **Frontend**: Shiny with custom CSS/JavaScript
 - **Backend**: R with socket-based tool execution
-- **AI**: Claude Sonnet 4.5 via Anthropic API (Shiny UI) or Claude Code via MCP (no key needed)
+- **AI**: Claude Sonnet 4.5 (Shiny UI) or Claude Code via MCP
 - **MCP Server**: JSON-RPC 2.0 over stdin/stdout — `start_mcp_server()`
 - **Database**: SQLite for chat persistence
 - **Tools**: ellmer for LLM integration; custom MCP registry for Claude Code
@@ -528,57 +499,12 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 
 ## Requirements
 
-### Shiny UI (`start_rflow()`)
 - **R >= 4.0**
-- **RStudio**
-- **Anthropic API key**
+- **Claude Code** (any plan, including Max) — for the MCP server
+- **RStudio** — for the Shiny chat UI
 - **R Packages** (auto-installed): shiny, ellmer, DBI, RSQLite, httr2, cli, glue, jsonlite
 
-### MCP Server (`start_mcp_server()`)
-- **R >= 4.0**
-- **Claude Code** (any plan — Max subscription works without an API key)
-- No additional R packages beyond what Rflow already installs
-
-## Billing
-
-You pay Anthropic directly based on API usage:
-- **Claude Sonnet 4.5**: ~$3 per million tokens
-- Typical chat: $0.01-0.05 per interaction
-- See [Anthropic Pricing](https://www.anthropic.com/pricing)
-
 ## Troubleshooting
-
-### "API key not found"
-```r
-# Set your key
-Sys.setenv(ANTHROPIC_API_KEY = "your-key")
-
-# Verify
-Sys.getenv("ANTHROPIC_API_KEY")
-```
-
-### "HTTP 401 Unauthorized" or "invalid x-api-key"
-
-**Most common cause:** Hidden whitespace or formatting characters in your API key
-
-```r
-# WRONG - May include hidden characters from copy/paste
-Sys.setenv(ANTHROPIC_API_KEY = " sk-ant-api03-...")  # Leading space
-
-# CORRECT - Clean, direct assignment
-Sys.setenv(ANTHROPIC_API_KEY = "sk-ant-api03-...")
-```
-
-**Solution:**
-1. Get a fresh API key from https://console.anthropic.com/settings/keys
-2. Copy it carefully (avoid selecting extra spaces)
-3. Set it using `Sys.setenv()` directly - don't paste from colored console output
-4. Verify it's clean: `cat(Sys.getenv("ANTHROPIC_API_KEY"))`
-
-**If still failing:**
-- Check that billing is configured in your Anthropic account
-- Verify you haven't exceeded API rate limits
-- Ensure the API key hasn't been revoked
 
 ### "Stream interrupted"
 - Check internet connection
@@ -608,7 +534,7 @@ start_rflow()
 
 ## Resources
 
-- [Anthropic API Docs](https://docs.anthropic.com/)
+- [Claude Code](https://claude.ai/code)
 - [ggplot2 Documentation](https://ggplot2.tidyverse.org/)
 - [tidyverse Website](https://www.tidyverse.org/)
 - [R for Data Science](https://r4ds.had.co.nz/)
