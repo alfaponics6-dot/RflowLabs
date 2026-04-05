@@ -11,8 +11,8 @@ Description: An advanced AI coding assistant that lives inside RStudio.
     analysis, publication-level plots, direct R integration, real-time streaming,
     smart data loading, and automatic error recovery.
 License: MIT + file LICENSE
-URL: https://github.com/carlychery2001/RflowLabs
-BugReports: https://github.com/carlychery2001/RflowLabs/issues
+URL: https://github.com/alfaponics6-dot/RflowLabs
+BugReports: https://github.com/alfaponics6-dot/RflowLabs/issues
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3

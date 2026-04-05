@@ -8,7 +8,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![R Version](https://img.shields.io/badge/R-%E2%89%A5%204.0.0-blue)](https://www.r-project.org/)
-[![GitHub Stars](https://img.shields.io/github/stars/carlychery2001/RflowLabs?style=social)](https://github.com/carlychery2001/RflowLabs/stargazers)
+[![GitHub Stars](https://img.shields.io/github/stars/alfaponics6-dot/RflowLabs?style=social)](https://github.com/alfaponics6-dot/RflowLabs/stargazers)
 
 </div>
 
@@ -45,7 +45,7 @@ If you get GitHub API errors, use this method (100% reliable):
 
 ```r
 # Includes automatic devtools installation
-if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb"); unzip("Rflow.zip"); devtools::install("RflowLabs-main")
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); download.file("https://github.com/alfaponics6-dot/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb"); unzip("Rflow.zip"); devtools::install("RflowLabs-main")
 ```
 
 Or if you prefer multi-line (copy ALL lines):
@@ -58,7 +58,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 
 options(timeout = 300)  # Extends timeout to 5 minutes
 download.file(
-  "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
+  "https://github.com/alfaponics6-dot/RflowLabs/archive/refs/heads/main.zip",
   "Rflow.zip",
   mode = "wb"
 )
@@ -76,11 +76,11 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 
 # Set timeout and install from GitHub
 options(timeout = 300)
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 
 # If the above fails, try different download method:
 options(download.file.method = "wininet")
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 ```
 
 **Having issues?** See [INSTALL.md](INSTALL.md) for permanent solutions.
@@ -89,13 +89,13 @@ remotes::install_github("carlychery2001/RflowLabs")
 
 ```r
 # Install v1.0.0 specifically
-remotes::install_github("carlychery2001/RflowLabs@v1.0.0")
+remotes::install_github("alfaponics6-dot/RflowLabs@v1.0.0")
 
 # Install latest release (recommended for stability)
-remotes::install_github("carlychery2001/RflowLabs@*release")
+remotes::install_github("alfaponics6-dot/RflowLabs@*release")
 
 # Install development version (main branch)
-remotes::install_github("carlychery2001/RflowLabs@main")
+remotes::install_github("alfaponics6-dot/RflowLabs@main")
 ```
 
 ### Update Rflow
@@ -104,7 +104,7 @@ To update to the latest version:
 
 ```r
 # Reinstall from GitHub
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 ```
 
 ### Troubleshooting Installation
@@ -113,10 +113,10 @@ If installation fails:
 
 ```r
 # Try with dependencies
-remotes::install_github("carlychery2001/RflowLabs", dependencies = TRUE)
+remotes::install_github("alfaponics6-dot/RflowLabs", dependencies = TRUE)
 
 # Or force reinstall
-remotes::install_github("carlychery2001/RflowLabs", force = TRUE)
+remotes::install_github("alfaponics6-dot/RflowLabs", force = TRUE)
 ```
 
 ## Quick Start
@@ -518,8 +518,8 @@ Rflow is free and open source. If it saves you time or helps your research, plea
 ## Contributing
 
 Contributions are welcome! Please feel free to:
-- [Report bugs](https://github.com/carlychery2001/RflowLabs/issues)
-- [Request features](https://github.com/carlychery2001/RflowLabs/issues)
+- [Report bugs](https://github.com/alfaponics6-dot/RflowLabs/issues)
+- [Request features](https://github.com/alfaponics6-dot/RflowLabs/issues)
 - Submit pull requests
 
 ## License
@@ -531,14 +531,14 @@ MIT License - see [LICENSE](LICENSE) file for details.
 <table>
 <tr>
 <td align="center">
-<a href="https://github.com/carlychery2001">
+<a href="https://github.com/alfaponics6-dot">
 <img src="images/profile.png" width="150" style="border-radius: 50%;" alt="Carly Chery"/>
 <br />
 <sub><b>Carly Chery</b></sub>
 </a>
 <br />
 <a href="mailto:cchery@earth.ac.cr">Email</a> |
-<a href="https://github.com/carlychery2001">GitHub</a>
+<a href="https://github.com/alfaponics6-dot">GitHub</a>
 </td>
 </tr>
 </table>
@@ -555,4 +555,4 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 **Powered by Claude Sonnet 4.5 | 1730 Expert Prompts | R 4.5.2 Source Code | Master-Level R Knowledge**
 
-**[Report Bug](https://github.com/carlychery2001/RflowLabs/issues) | [Request Feature](https://github.com/carlychery2001/RflowLabs/issues) | [View on GitHub](https://github.com/carlychery2001/RflowLabs)**
+**[Report Bug](https://github.com/alfaponics6-dot/RflowLabs/issues) | [Request Feature](https://github.com/alfaponics6-dot/RflowLabs/issues) | [View on GitHub](https://github.com/alfaponics6-dot/RflowLabs)**

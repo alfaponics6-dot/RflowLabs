@@ -441,7 +441,7 @@ Rflow: [Uses rf_poultry_fish to make forecast]
 ## Support
 
 For questions or issues:
-- GitHub Issues: https://github.com/carlychery2001/RflowLabs/issues
+- GitHub Issues: https://github.com/alfaponics6-dot/RflowLabs/issues
 - Email: cchery@earth.ac.cr
 
 ## Citation
@@ -450,7 +450,7 @@ If you use Rflow's Random Forest features in your research, please cite:
 
 ```
 Chery, C. (2024). Rflow: Professional AI Assistant for RStudio with Agriculture Analytics.
-R package version 1.0.0. https://github.com/carlychery2001/RflowLabs
+R package version 1.0.0. https://github.com/alfaponics6-dot/RflowLabs
 ```
 
 ---

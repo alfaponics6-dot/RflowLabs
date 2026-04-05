@@ -7,7 +7,7 @@ If you're getting `download from 'https://api.github.com/repos/...' failed` erro
 **Copy this ENTIRE line** (auto-installs devtools + timeout fix):
 
 ```r
-if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); temp_zip <- tempfile(fileext = ".zip"); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", temp_zip, mode = "wb"); temp_dir <- tempdir(); unzip(temp_zip, exdir = temp_dir); pkg_dir <- file.path(temp_dir, "RflowLabs-main"); devtools::install(pkg_dir); library(Rflow)
+if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); temp_zip <- tempfile(fileext = ".zip"); download.file("https://github.com/alfaponics6-dot/RflowLabs/archive/refs/heads/main.zip", temp_zip, mode = "wb"); temp_dir <- tempdir(); unzip(temp_zip, exdir = temp_dir); pkg_dir <- file.path(temp_dir, "RflowLabs-main"); devtools::install(pkg_dir); library(Rflow)
 ```
 
 ## Detailed Install (Copy and Paste)
@@ -26,7 +26,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 temp_zip <- tempfile(fileext = ".zip")
 options(timeout = 300)  # Extends timeout to 5 minutes
 download.file(
-  "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
+  "https://github.com/alfaponics6-dot/RflowLabs/archive/refs/heads/main.zip",
   temp_zip,
   mode = "wb"
 )
@@ -56,16 +56,16 @@ options(timeout = 300)
 
 # Try wininet (Windows)
 options(download.file.method = "wininet")
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 
 # Or try libcurl
 options(download.file.method = "libcurl")
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 ```
 
 ### Method 3: Manual Download (100% Reliable)
 
-1. **Download:** Go to https://github.com/carlychery2001/RflowLabs
+1. **Download:** Go to https://github.com/alfaponics6-dot/RflowLabs
 2. **Click:** Green "Code" button > "Download ZIP"
 3. **Extract:** Unzip to any folder
 4. **Install:**
@@ -95,7 +95,7 @@ install_rflow <- function() {
   temp_zip <- tempfile(fileext = ".zip")
   options(timeout = 300)  # 5 minutes
   download.file(
-    "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
+    "https://github.com/alfaponics6-dot/RflowLabs/archive/refs/heads/main.zip",
     temp_zip,
     mode = "wb",
     method = "auto"
@@ -139,14 +139,14 @@ If you still can't install, you have these options:
 
 ```r
 install.packages("devtools")
-devtools::install_github("carlychery2001/RflowLabs")
+devtools::install_github("alfaponics6-dot/RflowLabs")
 ```
 
 ### Option B: Install from local clone
 
 ```r
 # Clone the repo
-system("git clone https://github.com/carlychery2001/RflowLabs.git")
+system("git clone https://github.com/alfaponics6-dot/RflowLabs.git")
 
 # Install
 setwd("RflowLabs")
@@ -161,7 +161,7 @@ options(timeout = 600)
 
 # Try different method
 options(download.file.method = "wget")
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 ```
 
 ## Common Network Solutions
@@ -174,7 +174,7 @@ Sys.setenv(http_proxy = "http://proxy.company.com:8080")
 Sys.setenv(https_proxy = "http://proxy.company.com:8080")
 
 # Then install
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 ```
 
 ### SSL Certificate Issues?
@@ -182,7 +182,7 @@ remotes::install_github("carlychery2001/RflowLabs")
 ```r
 # Temporarily disable SSL verification (use with caution)
 options(download.file.method = "wininet")
-remotes::install_github("carlychery2001/RflowLabs")
+remotes::install_github("alfaponics6-dot/RflowLabs")
 ```
 
 ## References
@@ -198,7 +198,7 @@ remotes::install_github("carlychery2001/RflowLabs")
 ```r
 # One command that ALWAYS works:
 options(timeout = 300)  # 5 minutes
-download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb")
+download.file("https://github.com/alfaponics6-dot/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb")
 unzip("Rflow.zip")
 devtools::install("RflowLabs-main")
 library(Rflow)
@@ -207,4 +207,4 @@ library(Rflow)
 ---
 
 **Questions?** Email: cchery@earth.ac.cr
-**Issues?** https://github.com/carlychery2001/RflowLabs/issues
+**Issues?** https://github.com/alfaponics6-dot/RflowLabs/issues

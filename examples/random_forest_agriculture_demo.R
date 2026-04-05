@@ -383,5 +383,5 @@ cat("  4. Deploy models in production environments\n\n")
 
 cat("For more information:\n")
 cat("  - See RANDOM_FOREST_AGRICULTURE.md\n")
-cat("  - Visit: https://github.com/carlychery2001/RflowLabs\n")
+cat("  - Visit: https://github.com/alfaponics6-dot/RflowLabs\n")
 cat("  - Email: cchery@earth.ac.cr\n\n")
