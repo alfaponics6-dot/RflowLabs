@@ -2,9 +2,9 @@
 
 <img src="images/logo.png" width="200" alt="Rflow Logo">
 
-# Rflow - Professional AI Assistant for RStudio
+# Rflow — MCP Server and R Toolkit for Claude Code
 
-**Rflow** is an advanced AI coding assistant that lives inside RStudio. Get expert help with R programming, data analysis, visualization, and statistical modeling through a clean, professional chat interface.
+**Rflow** is an MCP (Model Context Protocol) server that gives Claude Code direct access to R. Drop a `.mcp.json` in your project and Claude Code gains 16 R tools — code execution, file analysis, Random Forest ML, R internals search, and more. No API key needed.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![R Version](https://img.shields.io/badge/R-%E2%89%A5%204.0.0-blue)](https://www.r-project.org/)
@@ -15,28 +15,13 @@
 ## Features
 
 ### Core Capabilities
-- **AI-Powered Analysis** - Claude Sonnet 4.5 with 1730+ expert training prompts
-- **MCP Server** - Use all R tools from Claude Code with no API key (Max subscription works)
+- **MCP Server** - 16 R tools exposed to Claude Code via JSON-RPC over stdin/stdout
+- **R Code Execution** - Run any R code, capture output, plots saved automatically
+- **File Analysis** - CSV, Excel, JSON, RDS, PDF, images, shapefiles, and more
 - **R Internals Mastery** - Direct access to R 4.5.2 source code for deep understanding
-- **Publication-Level Plots** - 220 prompts dedicated to creating perfect visualizations
-- **Direct R Integration** - Execute code, read/write files, inspect environment
-- **Real-Time Streaming** - Fast, smooth responses with terminal-style events
-- **Smart Data Loading** - One-click CSV/Excel upload and auto-load
-- **Error Recovery** - Automatic retry logic, graceful timeout handling
-- **Agriculture Analytics** - Random Forest ML for soil, livestock, and crop predictions
-
-### Performance
-- **100+ chars/sec streaming** - 5x faster than before
-- **Optimized rendering** - Cached renders, batched updates
-- **Reliable connections** - 3x retry with exponential backoff
-- **5-minute timeout** - No more infinite hangs
-
-### User Interface
-- **Clean Flat Design** - Professional #0066FF blue theme
-- **Terminal-Style Events** - Multiple progress indicators with checkmarks
-- **Quick Action Buttons** - Load Data, Analyze, Plot, Model, Debug, Optimize
-- **Syntax Highlighting** - Beautiful code blocks
-- **Dark/Light Mode** - Toggle between themes
+- **Random Forest ML** - Train models on any dataset; specialized tools for agriculture
+- **Workspace Management** - Folder/file context shared with Claude Code
+- **No API Key** - Works with any Claude Code plan including Max subscriptions
 
 ## Installation
 
@@ -138,73 +123,21 @@ remotes::install_github("alfaponics6-dot/RflowLabs", force = TRUE)
 
 **2. Start Claude Code in that folder** — it auto-detects the file and loads all 16 R tools. Done.
 
-### With the Shiny Chat UI in RStudio
-
-```r
-library(Rflow)
-
-start_rflow()                        # opens in RStudio viewer
-start_rflow(launch_in = "browser")   # opens in browser instead
-```
-
-```r
-# When you're done
-stop_rflow()
-```
 
 ## Usage Examples
 
-### Load and Analyze Data
-
-1. Click the paperclip icon to attach your CSV/Excel file
-2. Click **"Load Data"** button
-3. Rflow will automatically:
-   - Load the file into `my_data` variable
-   - Show structure and summary
-   - Check for missing values
-   - Display first rows
-
-### Create Publication Plots
+Once `.mcp.json` is in your project root and Claude Code is open, just ask naturally:
 
 ```
-You: "Create a publication-ready scatter plot of mpg vs wt from mtcars"
-
-Rflow will:
-- Load mtcars dataset
-- Create ggplot2 visualization
-- Apply professional theme
-- Add proper labels and titles
-- Use color-blind safe palette
-- Export as 300 DPI PNG
+"Run summary(lm(mpg ~ wt + cyl, data = mtcars)) and show me the results"
+"Read the file data/results.csv and tell me what's in it"
+"Train a Random Forest on iris to predict Species"
+"Search the R source code for how do_subset is implemented"
+"List all R files in the current directory"
+"Create a directory called output and write a CSV there"
 ```
 
-### Build Statistical Models
-
-```
-You: "Build a linear regression model for mpg"
-
-Rflow will:
-- Check data availability
-- Build lm() model
-- Show diagnostics plots
-- Report R-squared, p-values, coefficients
-- Interpret results
-- Save script for reproducibility
-```
-
-### Debug Code
-
-1. Paste your code or error message
-2. Click **"Debug Code"** button
-3. Rflow identifies issues and provides fixes
-
-### Optimize Performance
-
-Click **"Optimize"** to get suggestions for:
-- Vectorization
-- data.table/dplyr improvements
-- Parallel processing
-- Memory efficiency
+Claude Code dispatches each request to the correct Rflow tool automatically.
 
 ## Random Forest for Agriculture Analytics
 
@@ -372,55 +305,7 @@ Claude Code dispatches to Rflow automatically — no copy-pasting, no switching 
 
 ---
 
-## Key Commands
 
-### Quick Actions
-- **Load Data** - Upload and load CSV/Excel files
-- **Analyze Data** - EDA with summary statistics and plots
-- **Create Plot** - Publication-ready ggplot2 visualizations
-- **Build Model** - Statistical modeling with diagnostics
-- **Debug Code** - Error detection and fixes
-- **Optimize** - Performance improvements
-
-### Chat Commands
-```
-"Load mtcars and show me a summary"
-"Create a box plot of mpg by cylinder"
-"Build a logistic regression for species prediction"
-"Debug this error: Error in x$y : $ operator is invalid for atomic vectors"
-"Optimize this loop: for(i in 1:nrow(df)) {...}"
-```
-
-## Advanced Features
-
-### Workspace Management
-- Rflow automatically detects your working directory
-- Shows available datasets in environment
-- Saves all scripts to your project folder
-- Never uses temp directories
-
-### Session Persistence
-- Chat history saved to SQLite database
-- Resume conversations across sessions
-- Export/import chat sessions
-
-### Error Handling
-- Automatic retry on network failures (3 attempts)
-- Graceful timeout after 5 minutes
-- Helpful error messages with suggestions
-- Partial responses shown on interruption
-
-## Expert Training
-
-Rflow is powered by **1730 comprehensive training prompts**:
-
-- **Foundation (1-1000)** - Core R, tidyverse, ggplot2, debugging
-- **High-Performance (1001-1100)** - data.table, arrow, polars
-- **Visualization (1101-1200)** - plotly, leaflet, gganimate
-- **Statistics (1201-1300)** - Bayesian, ML, deep learning
-- **Programming (1301-1400)** - OOP, rlang, async
-- **Shiny (1401-1510)** - Modules, testing, deployment
-- **Publication Plots (1511-1730)** - Perfect plots every time
 
 ## R Internals Mastery
 
@@ -447,90 +332,39 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 
 **See [docs/r-internals-guide.md](docs/r-internals-guide.md) for complete documentation.**
 
-## Publication Plotting Expertise
-
-220 dedicated prompts ensure every plot is publication-ready:
-
-### ggplot2 Excellence (60 prompts)
-- Professional themes (theme_minimal, theme_bw)
-- Color-blind safe palettes (viridis, ColorBrewer)
-- Proper DPI exports (300-600)
-- Perfect axis labels with units
-
-### Statistical Plots (40 prompts)
-- Error bars and confidence intervals
-- Q-Q plots and diagnostics
-- Correlation matrices
-- Forest plots and meta-analysis
-
-### Professional Formatting (40 prompts)
-- Consistent fonts (Arial, Helvetica)
-- Scientific notation
-- Decimal alignment
-- Accessibility compliance
-
-### Advanced Types (40 prompts)
-- Manhattan plots, volcano plots
-- Heatmaps with dendrograms
-- Network graphs
-- Time series visualizations
 
 ## Technical Details
 
 ### Architecture
-- **Frontend**: Shiny with custom CSS/JavaScript
-- **Backend**: R with socket-based tool execution
-- **AI**: Claude Sonnet 4.5 (Shiny UI) or Claude Code via MCP
-- **MCP Server**: JSON-RPC 2.0 over stdin/stdout — `start_mcp_server()`
-- **Database**: SQLite for chat persistence
-- **Tools**: ellmer for LLM integration; custom MCP registry for Claude Code
-
-### Performance Optimizations
-- 100ms update intervals (vs 15ms) for smoother streaming
-- 50-character batching (vs 5) for efficiency
-- Render caching to avoid redundant processing
-- 5000-character buffers for better throughput
-
-### Reliability Features
-- 3x retry with exponential backoff (2s, 4s, 8s)
-- 5-minute timeout protection
-- Chunked tool calls (<100 lines per file)
-- Graceful error handling with helpful messages
+- **Transport**: JSON-RPC 2.0 over stdin/stdout
+- **Entry point**: `Rscript -e "Rflow::start_mcp_server()"`
+- **Tools**: 16 tools registered with full JSON Schema definitions
+- **Execution**: Tools run directly in the MCP server's R process
+- **Graphics**: Plots captured to temp PNG files automatically
 
 ## Requirements
 
 - **R >= 4.0**
-- **Claude Code** (any plan, including Max) — for the MCP server
-- **RStudio** — for the Shiny chat UI
-- **R Packages** (auto-installed): shiny, ellmer, DBI, RSQLite, httr2, cli, glue, jsonlite
+- **Claude Code** (any plan, including Max)
+- **R Packages** (auto-installed): cli, jsonlite, rappdirs, rlang, rstudioapi, stats, tools, utils
 
 ## Troubleshooting
 
-### "Stream interrupted"
-- Check internet connection
-- Break request into smaller parts
-- Rflow will auto-retry 3 times
+### MCP server not detected
+- Make sure `.mcp.json` is in the **project root** (same folder Claude Code opens)
+- Verify Rflow is installed: `library(Rflow)` in R should work without errors
+- Try running `Rscript -e "Rflow::start_mcp_server()"` manually — any startup error will print to the console
 
-### "No data found"
-- Load data first: `data(mtcars)` or upload CSV
-- Use "Load Data" quick action button
-
-### App won't start
-```r
-# Restart Rflow
-stop_rflow()
-start_rflow()
-
-# Check for errors in R console
-```
+### Tool returns an error
+- The error message is returned as the tool result — Claude Code will show it
+- Run the same code in a plain R session to debug directly
 
 ## Best Practices
 
-1. **Start small** - Load data first, then analyze step-by-step
-2. **Use quick actions** - Faster than typing full prompts
-3. **Save scripts** - Rflow auto-saves, but review and organize
-4. **Check data** - Always verify loaded datasets before modeling
-5. **Export plots** - Save publication figures at 300+ DPI
+1. **Use `run_r_code` with `persist=true`** to build up objects across calls
+2. **Use `analyze_file`** before working with a dataset — it loads the data into R automatically
+3. **Plots are saved to temp files** — ask Claude Code to show you the path or copy it somewhere
+4. **Use `get_workspace_summary`** to orient Claude Code to your project structure
 
 ## Resources
 
@@ -579,14 +413,13 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
-- Powered by [Claude Sonnet 4.5](https://www.anthropic.com/claude) from Anthropic
-- Built with [shinychat](https://github.com/posit-dev/shinychat)
-- Uses [ellmer](https://github.com/tidyverse/ellmer) for LLM integration
+- Built for [Claude Code](https://claude.ai/code) by Anthropic
+- Uses the [Model Context Protocol](https://modelcontextprotocol.io/) (MCP) standard
 
 ---
 
 **Built for the R community**
 
-**Powered by Claude Sonnet 4.5 | 1730 Expert Prompts | R 4.5.2 Source Code | MCP Server for Claude Code | Master-Level R Knowledge**
+**MCP Server for Claude Code | 16 R Tools | R 4.5.2 Source Code | No API Key Required**
 
 **[Report Bug](https://github.com/alfaponics6-dot/RflowLabs/issues) | [Request Feature](https://github.com/alfaponics6-dot/RflowLabs/issues) | [View on GitHub](https://github.com/alfaponics6-dot/RflowLabs)**

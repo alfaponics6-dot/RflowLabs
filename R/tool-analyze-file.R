@@ -1,94 +1,5 @@
-#' Tool: Analyze File
-#'
-#' Analyzes uploaded files (Excel, CSV, images, etc.)
-#'
-#' @return An ellmer tool
-tool_analyze_file <- function() {
-  ellmer::tool(
-    function(file_path, analysis_type = "summary") {
-      tryCatch({
-        if (!file.exists(file_path)) {
-          return(ellmer::ContentToolResult(
-            value = paste0("File not found: ", file_path),
-            extra = list(
-              display = list(
-                markdown = paste0("**Error:** File not found at path: `", file_path, "`"),
-                title = "File Analysis Error"
-              )
-            )
-          ))
-        }
-        
-        # Detect file type
-        ext <- tolower(tools::file_ext(file_path))
-        
-        result <- switch(ext,
-          "xlsx" = ,
-          "xls" = analyze_excel(file_path),
-          "csv" = analyze_csv(file_path),
-          "tsv" = analyze_tsv(file_path),
-          "rds" = analyze_rds(file_path),
-          "rdata" = ,
-          "rda" = analyze_rdata(file_path),
-          "json" = analyze_json(file_path),
-          "shp" = analyze_shapefile(file_path),
-          "geojson" = analyze_geojson(file_path),
-          "png" = ,
-          "jpg" = ,
-          "jpeg" = ,
-          "gif" = ,
-          "bmp" = ,
-          "tiff" = ,
-          "webp" = analyze_image(file_path),
-          "txt" = ,
-          "log" = ,
-          "md" = ,
-          "markdown" = analyze_text(file_path),
-          "r" = ,
-          "rmd" = analyze_r_file(file_path),
-          "py" = ,
-          "js" = ,
-          "html" = ,
-          "css" = ,
-          "xml" = ,
-          "yaml" = ,
-          "yml" = analyze_code_file(file_path, ext),
-          "pdf" = analyze_pdf(file_path),
-          "docx" = ,
-          "doc" = analyze_document(file_path),
-          # Default handler for any unknown file type
-          analyze_generic(file_path, ext)
-        )
-        
-        ellmer::ContentToolResult(
-          value = result,
-          extra = list(
-            display = list(
-              markdown = paste0("**File Analysis:**\n\n", result),
-              title = "File Analysis"
-            )
-          )
-        )
-      }, error = function(e) {
-        ellmer::ContentToolResult(
-          value = paste0("Error analyzing file: ", conditionMessage(e)),
-          extra = list(
-            display = list(
-              markdown = paste0("**Error:** ", conditionMessage(e)),
-              title = "File Analysis Error"
-            )
-          )
-        )
-      })
-    },
-    name = "analyze_file",
-    description = "Analyze any uploaded file regardless of extension. Supports Excel, CSV, TSV, RDS, RData, JSON, images, text files, code files, PDFs, and more. Provides summary statistics, structure, and content preview.",
-    arguments = list(
-      file_path = ellmer::type_string("Path to the file to analyze"),
-      analysis_type = ellmer::type_string("Type of analysis: 'summary' (default), 'detailed', or 'preview'")
-    )
-  )
-}
+# Internal file analysis helpers used by the MCP analyze_file tool.
+# Each function returns a character string summary of the file.
 
 analyze_excel <- function(file_path) {
   if (!requireNamespace("readxl", quietly = TRUE)) {
@@ -343,7 +254,7 @@ analyze_code_file <- function(file_path, ext) {
     py = "python", js = "javascript", html = "html", 
     css = "css", xml = "xml", yaml = "yaml", yml = "yaml"
   )
-  lang <- lang_map[[ext]] %||% ext
+  lang <- if (!is.null(lang_map[[ext]])) lang_map[[ext]] else ext
   
   result <- paste0("**Code File Analysis (", toupper(ext), ")**\n\n")
   result <- paste0(result, "- File: `", basename(file_path), "`\n")

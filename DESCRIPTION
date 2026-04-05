@@ -1,15 +1,13 @@
 Package: Rflow
-Title: Professional AI Assistant for RStudio
-Version: 1.0.0
+Title: MCP Server and R Toolkit for Claude Code
+Version: 2.0.0
 Authors@R:
     person("Carly", "Chery", email = "cchery@earth.ac.cr", role = c("aut", "cre"))
-Description: An advanced AI coding assistant that lives inside RStudio.
-    Get expert help with R programming, data analysis, visualization, and
-    statistical modeling through a clean, professional chat interface. Powered
-    by Claude Sonnet 4.5 with expert training prompts and direct access
-    to R source code for deep understanding. Features include AI-powered
-    analysis, publication-level plots, direct R integration, real-time streaming,
-    smart data loading, and automatic error recovery.
+Description: An MCP (Model Context Protocol) server that gives Claude Code
+    direct access to R. Exposes 16 tools covering R code execution, file
+    analysis, file system operations, R internals search, Random Forest
+    machine learning, and workspace management. No API key required —
+    works with any Claude Code plan including Max subscriptions.
 License: MIT + file LICENSE
 URL: https://github.com/alfaponics6-dot/RflowLabs
 BugReports: https://github.com/alfaponics6-dot/RflowLabs/issues
@@ -19,44 +17,20 @@ RoxygenNote: 7.3.3
 Depends:
     R (>= 4.0.0)
 Imports:
-    base64enc,
-    bslib,
-    btw,
     cli,
-    coro,
-    DBI,
-    digest,
-    ellmer,
-    glue,
-    htmltools,
-    httr2,
     jsonlite,
-    later,
-    nanonext,
     rappdirs,
     rlang (>= 1.1.0),
-    RSQLite,
     rstudioapi,
-    S7,
-    shiny,
-    shinychat,
-    shinyjs,
     stats,
     tools,
-    withr
+    utils
 Config/testthat/edition: 3
 Suggests:
     testthat (>= 3.0.0),
-    httpuv,
+    randomForest,
     readxl,
     sf,
     pdftools,
     officer,
-    plotly,
-    htmlwidgets,
-    randomForest,
     ggplot2
-Remotes:
-    posit-dev/shinychat/pkg-r,
-    tidyverse/ellmer,
-    posit-dev/btw
