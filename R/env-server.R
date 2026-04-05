@@ -107,25 +107,29 @@ wait_for_env_server <- function(url, max_seconds = 5) {
   start_time <- Sys.time()
   
   while (difftime(Sys.time(), start_time, units = "secs") < max_seconds) {
+    sock <- NULL
     result <- tryCatch(
       {
         sock <- nanonext::socket("req", dial = url)
-        on.exit(close(sock), add = TRUE)
         ctx <- nanonext::context(sock)
-        
+
         test_request <- list(
           tool_name = "btw_tool_env_describe_environment",
           arguments = list(items = NULL, `_intent` = "")
         )
-        
+
         response <- nanonext::request(ctx, data = test_request, timeout = 100)
         nanonext::call_aio(response)
-        
+
+        tryCatch(close(sock), error = function(e) NULL)
         return(invisible(NULL))
       },
-      error = function(e) NULL
+      error = function(e) NULL,
+      finally = {
+        if (!is.null(sock)) tryCatch(close(sock), error = function(e) NULL)
+      }
     )
-    
+
     Sys.sleep(0.1)
   }
   

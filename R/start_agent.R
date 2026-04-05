@@ -31,7 +31,7 @@ start_rflow <- function(
   clean_rstudio_session()
 
   # Check for Anthropic API key
-  anthropic_key <- Sys.getenv("ANTHROPIC_API_KEY", "")
+  anthropic_key <- trimws(Sys.getenv("ANTHROPIC_API_KEY", ""))
   if (nchar(anthropic_key) == 0) {
     cli::cli_abort(c(
       "Anthropic API key not found",
@@ -136,10 +136,10 @@ run_in_background <- function(app_dir, job_name, host, port) {
   # Use cat() to write the key safely without glue interpolation issues
   script_lines <- c(
     "# Set API key in background job environment",
-    sprintf('Sys.setenv(ANTHROPIC_API_KEY = "%s")', api_key),
+    sprintf('Sys.setenv(ANTHROPIC_API_KEY = %s)', deparse(api_key)),
     "",
     "# Verify API key is set",
-    sprintf('cat("API key set in job: ", substr(Sys.getenv("ANTHROPIC_API_KEY"), 1, 20), "...\\n")'),
+    'cat("API key set in job: ", nchar(Sys.getenv("ANTHROPIC_API_KEY")), "chars\\n")',
     "",
     "# Run Shiny app",
     sprintf('shiny::runApp(appDir = "%s", port = %d, host = "%s")', app_dir, port, host)

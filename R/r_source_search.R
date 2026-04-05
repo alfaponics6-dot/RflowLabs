@@ -11,16 +11,25 @@
 #' @return Character vector of search results with file paths and line numbers
 #' @export
 search_r_source <- function(pattern, path = NULL, context = 3, max_results = 50) {
-  # Get R source directory
-  r_source_dir <- system.file("../R-source/R-4.5.2", package = "Rflow")
+  # Get R source directory from package installation
+  r_source_dir <- system.file("R-source", "R-4.5.2", package = "Rflow")
 
-  # Fallback to download location if not installed
+  # Fallback: check common locations
   if (!dir.exists(r_source_dir) || r_source_dir == "") {
-    r_source_dir <- "C:/Users/carly/Downloads/Rflow/R-source/R-4.5.2"
+    candidates <- c(
+      file.path(rappdirs::user_data_dir("Rflow"), "R-source", "R-4.5.2"),
+      file.path(Sys.getenv("HOME"), "R-source", "R-4.5.2")
+    )
+    for (candidate in candidates) {
+      if (dir.exists(candidate)) {
+        r_source_dir <- candidate
+        break
+      }
+    }
   }
 
-  if (!dir.exists(r_source_dir)) {
-    return("Error: R source code not found. Please ensure R-source directory exists.")
+  if (!dir.exists(r_source_dir) || r_source_dir == "") {
+    return("Error: R source code not found. Download R source from https://cran.r-project.org/src/base/ and place in your Rflow data directory.")
   }
 
   # Build search path
@@ -34,17 +43,35 @@ search_r_source <- function(pattern, path = NULL, context = 3, max_results = 50)
 
   # Use grep to search (works cross-platform)
   tryCatch({
+    # Validate pattern is usable for grep
+    sanitized <- pattern
+    tryCatch(grep(sanitized, ""), error = function(e) {
+      sanitized <<- gsub("([\\[\\](){}|*+?^$.])", "\\\\\\1", pattern)
+    })
+    if (nchar(trimws(sanitized)) == 0) {
+      return("Error: Empty search pattern.")
+    }
+
     # Search recursively through .c, .h, and .R files
-    if (.Platform$OS.type == "windows") {
-      # Windows: use findstr
-      cmd <- sprintf('cd /d "%s" && findstr /S /N /I /C:"%s" *.c *.h *.R 2>nul',
-                     search_path, pattern)
-      results <- system(cmd, intern = TRUE, ignore.stderr = TRUE)
-    } else {
-      # Unix/Linux/Mac: use grep
-      cmd <- sprintf('grep -r -n -i -C %d "%s" "%s" --include="*.c" --include="*.h" --include="*.R"',
-                     context, pattern, search_path)
-      results <- system(cmd, intern = TRUE, ignore.stderr = TRUE)
+    all_files <- list.files(search_path, pattern = "\\.(c|h|R)$",
+                            recursive = TRUE, full.names = TRUE)
+    if (length(all_files) == 0) {
+      return("No source files found in search path.")
+    }
+
+    results <- character(0)
+    for (f in all_files) {
+      lines <- tryCatch(readLines(f, warn = FALSE), error = function(e) character(0))
+      matches <- grep(sanitized, lines, ignore.case = TRUE)
+      if (length(matches) > 0) {
+        rel_path <- sub(paste0("^", gsub("\\\\", "/", search_path), "/?"), "", gsub("\\\\", "/", f))
+        for (m in matches) {
+          start <- max(1, m - context)
+          end <- min(length(lines), m + context)
+          snippet <- paste(sprintf("%s:%d: %s", rel_path, start:end, lines[start:end]), collapse = "\n")
+          results <- c(results, snippet, "")
+        }
+      }
     }
 
     # Limit results

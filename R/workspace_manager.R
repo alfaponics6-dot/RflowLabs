@@ -205,8 +205,14 @@ get_workspace_summary <- function() {
 #' @return List with folder information
 #' @keywords internal
 scan_folder <- function(folder_path, max_depth = 3) {
+  # Respect max_depth by filtering based on path depth
+  base_depth <- length(strsplit(normalizePath(folder_path, winslash = "/"), "/")[[1]])
   all_files <- list.files(folder_path, recursive = TRUE, full.names = TRUE)
+  file_depths <- lengths(strsplit(normalizePath(all_files, winslash = "/"), "/")) - base_depth
+  all_files <- all_files[file_depths <= max_depth]
   all_dirs <- list.dirs(folder_path, recursive = TRUE, full.names = TRUE)
+  dir_depths <- lengths(strsplit(normalizePath(all_dirs, winslash = "/"), "/")) - base_depth
+  all_dirs <- all_dirs[dir_depths <= max_depth]
   
   # Categorize files
   extensions <- tolower(tools::file_ext(all_files))

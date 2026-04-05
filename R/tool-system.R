@@ -49,8 +49,13 @@ tool_create_directory <- function() {
   ellmer::tool(
     function(path, recursive = TRUE, `_intent` = NULL) {
       tryCatch({
-        dir.create(path, showWarnings = FALSE, recursive = recursive)
-        
+        success <- dir.create(path, showWarnings = FALSE, recursive = recursive)
+        if (!success && !dir.exists(path)) {
+          return(ellmer::ContentToolResult(
+            error = paste0("Failed to create directory: ", path)
+          ))
+        }
+
         ellmer::ContentToolResult(
           value = paste0("Directory created: ", path),
           extra = list(
@@ -123,7 +128,10 @@ tool_copy_path <- function() {
   ellmer::tool(
     function(from, to, overwrite = FALSE, `_intent` = NULL) {
       tryCatch({
-        if (file.info(from)$isdir) {
+        if (!file.exists(from) && !dir.exists(from)) {
+          return(ellmer::ContentToolResult(error = paste0("Source not found: ", from)))
+        }
+        if (isTRUE(file.info(from)$isdir)) {
           # Copy directory
           dir.create(dirname(to), showWarnings = FALSE, recursive = TRUE)
           file.copy(from, to, overwrite = overwrite, recursive = TRUE)

@@ -4,11 +4,16 @@ Native Windows wrapper for Rflow web interface (like Electron)
 """
 
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow
+import socket
+from PyQt6.QtWidgets import (
+    QApplication, QMainWindow, QWidget, QFrame,
+    QVBoxLayout, QHBoxLayout, QLabel, QTextEdit,
+    QPushButton, QScrollArea
+)
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWebEngineCore import QWebEngineSettings
-from PyQt6.QtCore import QUrl, Qt
-from PyQt6.QtGui import QIcon
+from PyQt6.QtCore import QUrl, Qt, QObject, pyqtSignal
+from PyQt6.QtGui import QIcon, QFont
 
 
 class MessageReceiver(QObject):
@@ -139,7 +144,7 @@ class RflowWindow(QMainWindow):
         """)
         header_layout = QHBoxLayout()
         
-        title = QLabel("🤖 Rflow AI Assistant")
+        title = QLabel("Rflow AI Assistant")
         title.setStyleSheet("color: white; font-size: 18px; font-weight: bold;")
         header_layout.addWidget(title)
         

@@ -2,7 +2,7 @@
 
 If you're getting `download from 'https://api.github.com/repos/...' failed` errors or **"Timeout of 60 seconds was reached"**, this is a **common GitHub API issue**. Here are **permanent solutions** that always work.
 
-## ⚡ FASTEST FIX - One Line Install
+## Fastest Fix - One Line Install
 
 **Copy this ENTIRE line** (auto-installs devtools + timeout fix):
 
@@ -10,12 +10,12 @@ If you're getting `download from 'https://api.github.com/repos/...' failed` erro
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); temp_zip <- tempfile(fileext = ".zip"); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", temp_zip, mode = "wb"); temp_dir <- tempdir(); unzip(temp_zip, exdir = temp_dir); pkg_dir <- file.path(temp_dir, "RflowLabs-main"); devtools::install(pkg_dir); library(Rflow)
 ```
 
-## 🚀 Detailed Install (Copy & Paste)
+## Detailed Install (Copy and Paste)
 
 ### Method 1: Direct ZIP Download (Most Reliable)
 
 ```r
-# ⚠️ IMPORTANT: Copy ALL lines below INCLUDING the devtools and options() lines!
+# IMPORTANT: Copy ALL lines below INCLUDING the devtools and options() lines
 
 # 0. Auto-install devtools if needed
 if (!requireNamespace("devtools", quietly = TRUE)) {
@@ -24,7 +24,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
 
 # 1. Download ZIP
 temp_zip <- tempfile(fileext = ".zip")
-options(timeout = 300)  # ← CRITICAL: Extends timeout to 5 minutes
+options(timeout = 300)  # Extends timeout to 5 minutes
 download.file(
   "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
   temp_zip,
@@ -41,7 +41,7 @@ devtools::install(pkg_dir)
 library(Rflow)
 ```
 
-**This works 100% of the time!** No GitHub API needed.
+**This works 100% of the time.** No GitHub API needed.
 
 ### Method 2: Use Different Download Method
 
@@ -63,17 +63,10 @@ options(download.file.method = "libcurl")
 remotes::install_github("carlychery2001/RflowLabs")
 ```
 
-### Method 3: Automated Multi-Method Installer
-
-```r
-# Run the smart installer that tries all methods
-source("https://raw.githubusercontent.com/carlychery2001/RflowLabs/main/INSTALL_RFLOW.R")
-```
-
-### Method 4: Manual Download (100% Reliable)
+### Method 3: Manual Download (100% Reliable)
 
 1. **Download:** Go to https://github.com/carlychery2001/RflowLabs
-2. **Click:** Green "Code" button → "Download ZIP"
+2. **Click:** Green "Code" button > "Download ZIP"
 3. **Extract:** Unzip to any folder
 4. **Install:**
    ```r
@@ -81,7 +74,7 @@ source("https://raw.githubusercontent.com/carlychery2001/RflowLabs/main/INSTALL_
    devtools::install()
    ```
 
-## 🔧 Why This Happens
+## Why This Happens
 
 This error occurs due to ([source](https://github.com/r-lib/remotes/issues/734)):
 - GitHub API rate limiting
@@ -91,7 +84,7 @@ This error occurs due to ([source](https://github.com/r-lib/remotes/issues/734))
 
 **Solution:** Bypass the GitHub API entirely using direct download methods above.
 
-## ✅ Permanent Solutions
+## Permanent Solutions
 
 ### For Your Own Use:
 
@@ -111,7 +104,7 @@ install_rflow <- function() {
   unzip(temp_zip, exdir = temp_dir)
   pkg_dir <- file.path(temp_dir, "RflowLabs-main")
   devtools::install(pkg_dir, upgrade = "never")
-  message("✓ Rflow installed successfully!")
+  message("Rflow installed successfully!")
 }
 
 # Run it
@@ -120,42 +113,7 @@ install_rflow()
 
 Then just: `source("install_rflow.R")`
 
-### For Distribution:
-
-Update your README with:
-
-```markdown
-## Installation
-
-### Recommended Method (Always Works):
-
-Download and install directly:
-
-\```r
-options(timeout = 300)  # 5 minutes
-download.file(
-  "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
-  "Rflow.zip",
-  mode = "wb"
-)
-unzip("Rflow.zip")
-devtools::install("RflowLabs-main")
-\```
-
-### Alternative Methods:
-
-If the above works, you can also try:
-\```r
-# Method 1: Standard (may fail on some networks)
-remotes::install_github("carlychery2001/RflowLabs")
-
-# Method 2: With different download method
-options(download.file.method = "wininet")
-remotes::install_github("carlychery2001/RflowLabs")
-\```
-```
-
-## 📦 After Installation
+## After Installation
 
 Test it works:
 
@@ -173,7 +131,7 @@ result <- rf_train(my_data, target = "outcome")
 plot_rf_importance(result)
 ```
 
-## 🆘 Still Having Issues?
+## Still Having Issues?
 
 If you still can't install, you have these options:
 
@@ -206,7 +164,7 @@ options(download.file.method = "wget")
 remotes::install_github("carlychery2001/RflowLabs")
 ```
 
-## 🌐 Common Network Solutions
+## Common Network Solutions
 
 ### Behind Corporate Firewall?
 
@@ -227,13 +185,13 @@ options(download.file.method = "wininet")
 remotes::install_github("carlychery2001/RflowLabs")
 ```
 
-## 📚 References
+## References
 
 - [remotes package issues with install_github](https://github.com/r-lib/remotes/issues/734)
 - [GitHub downloads failing in R](https://stackoverflow.com/questions/72495046/downloads-from-github-repo-in-r-keeps-failing)
 - [Alternative download methods](https://github.com/r-lib/remotes/issues/210)
 
-## ✨ Bottom Line
+## Bottom Line
 
 **The ZIP download method works 100% of the time:**
 

@@ -28,7 +28,7 @@ cat("Working directory:", working_dir, "\n")
 api_key_present <- nchar(Sys.getenv("ANTHROPIC_API_KEY", "")) > 0
 cat("API key present in job environment:", api_key_present, "\n")
 if (api_key_present) {
-  cat("API key prefix:", substr(Sys.getenv("ANTHROPIC_API_KEY"), 1, 15), "...\n")
+  cat("API key length:", nchar(Sys.getenv("ANTHROPIC_API_KEY")), "chars\n")
 }
 
 client <- readRDS('{{client_path}}')
@@ -2488,7 +2488,7 @@ server <- function(input, output, session) {
     lapply(msg_list, function(msg) {
       if (msg$role == "user") {
         div(class = "message message-user",
-          div(class = "message-content", HTML(msg$content))
+          div(class = "message-content", htmltools::htmlEscape(msg$content))
         )
       } else {
         # Render markdown for assistant messages

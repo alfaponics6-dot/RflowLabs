@@ -6,8 +6,8 @@ Authors@R:
 Description: An advanced AI coding assistant that lives inside RStudio.
     Get expert help with R programming, data analysis, visualization, and
     statistical modeling through a clean, professional chat interface. Powered
-    by Claude Sonnet 4.5 with 1730+ expert training prompts and direct access
-    to R 4.5.2 source code for deep understanding. Features include: AI-powered
+    by Claude Sonnet 4.5 with expert training prompts and direct access
+    to R source code for deep understanding. Features include AI-powered
     analysis, publication-level plots, direct R integration, real-time streaming,
     smart data loading, and automatic error recovery.
 License: MIT + file LICENSE
@@ -27,16 +27,12 @@ Imports:
     DBI,
     digest,
     ellmer,
-    fastmap,
     glue,
     htmltools,
-    httr,
     httr2,
     jsonlite,
     later,
     nanonext,
-    processx,
-    promises,
     rappdirs,
     rlang (>= 1.1.0),
     RSQLite,
@@ -45,8 +41,10 @@ Imports:
     shiny,
     shinychat,
     shinyjs,
-    withr,
-    yaml
+    stats,
+    tools,
+    withr
+Config/testthat/edition: 3
 Suggests:
     testthat (>= 3.0.0),
     httpuv,

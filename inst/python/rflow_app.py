@@ -244,107 +244,104 @@ class RflowWindow(QMainWindow):
                 }
                 
                 function createChatSVG() {
-                function createChatSVG() {{
                     return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" fill="currentColor"/>
                     </svg>`;
-                }}
-                
-                function createChartSVG() {{
+                }
+
+                function createChartSVG() {
                     return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 13H5V21H3V13ZM7 9H9V21H7V9ZM11 5H13V21H11V5ZM15 9H17V21H15V9ZM19 13H21V21H19V13Z" fill="currentColor"/>
                     </svg>`;
-                }}
-                
-                function createBoltSVG() {{
+                }
+
+                function createBoltSVG() {
                     return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="currentColor"/>
                     </svg>`;
-                }}
-                
-                function createSparklesSVG() {{
+                }
+
+                function createSparklesSVG() {
                     return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 1L14.5 8.5L22 11L14.5 13.5L12 21L9.5 13.5L2 11L9.5 8.5L12 1Z" fill="currentColor"/>
                         <path d="M19 15L20 17L22 18L20 19L19 21L18 19L16 18L18 17L19 15Z" fill="currentColor"/>
                     </svg>`;
-                }}
-                
-                function createPaletteSVG() {{
+                }
+
+                function createPaletteSVG() {
                     return `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C13.66 22 15 20.66 15 19C15 18.31 14.75 17.68 14.35 17.18C13.97 16.7 13.75 16.11 13.75 15.5C13.75 14.12 14.88 13 16.25 13H18C20.21 13 22 11.21 22 9C22 5.13 17.52 2 12 2ZM6.5 12C5.67 12 5 11.33 5 10.5C5 9.67 5.67 9 6.5 9C7.33 9 8 9.67 8 10.5C8 11.33 7.33 12 6.5 12ZM9.5 8C8.67 8 8 7.33 8 6.5C8 5.67 8.67 5 9.5 5C10.33 5 11 5.67 11 6.5C11 7.33 10.33 8 9.5 8ZM14.5 8C13.67 8 13 7.33 13 6.5C13 5.67 13.67 5 14.5 5C15.33 5 16 5.67 16 6.5C16 7.33 15.33 8 14.5 8ZM17.5 12C16.67 12 16 11.33 16 10.5C16 9.67 16.67 9 17.5 9C18.33 9 19 9.67 19 10.5C19 11.33 18.33 12 17.5 12Z" fill="currentColor"/>
                     </svg>`;
-                }}
-                
-                function addLoadingAnimations() {{
-                    // Add modern shimmer effect to loading elements
-                    const style = document.createElement('style');
+                }
+
+                function addLoadingAnimations() {
+                    var style = document.createElement('style');
                     style.textContent = `
-                        @keyframes shimmer {{
-                            0% {{ 
+                        @keyframes shimmer {
+                            0% {
                                 background-position: -1000px 0;
                                 opacity: 0.6;
-                            }}
-                            50% {{
+                            }
+                            50% {
                                 opacity: 1;
-                            }}
-                            100% {{ 
+                            }
+                            100% {
                                 background-position: 1000px 0;
                                 opacity: 0.6;
-                            }}
-                        }}
-                        
-                        @keyframes pulse {{
-                            0%, 100% {{ 
+                            }
+                        }
+
+                        @keyframes pulse {
+                            0%, 100% {
                                 opacity: 1;
                                 transform: scale(1);
-                            }}
-                            50% {{ 
+                            }
+                            50% {
                                 opacity: 0.8;
                                 transform: scale(0.98);
-                            }}
-                        }}
-                        
-                        @keyframes fadeInUp {{
-                            from {{
+                            }
+                        }
+
+                        @keyframes fadeInUp {
+                            from {
                                 opacity: 0;
                                 transform: translateY(20px);
-                            }}
-                            to {{
+                            }
+                            to {
                                 opacity: 1;
                                 transform: translateY(0);
-                            }}
-                        }}
-                        
-                        .loading {{
+                            }
+                        }
+
+                        .loading {
                             background: linear-gradient(
-                                90deg, 
-                                rgba(240, 240, 240, 0.8) 25%, 
-                                rgba(224, 224, 224, 1) 50%, 
+                                90deg,
+                                rgba(240, 240, 240, 0.8) 25%,
+                                rgba(224, 224, 224, 1) 50%,
                                 rgba(240, 240, 240, 0.8) 75%
                             );
                             background-size: 1000px 100%;
                             animation: shimmer 2s ease-in-out infinite;
                             border-radius: 8px;
-                        }}
-                        
-                        .loading-pulse {{
+                        }
+
+                        .loading-pulse {
                             animation: pulse 2s ease-in-out infinite;
-                        }}
-                        
-                        .fade-in-up {{
+                        }
+
+                        .fade-in-up {
                             animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-                        }}
+                        }
                     `;
                     document.head.appendChild(style);
-                }}
-                
-                function enhanceFormElements() {{
-                    // Add focus rings and modern interactions
-                    document.querySelectorAll('input, textarea, select, button').forEach(el => {{
+                }
+
+                function enhanceFormElements() {
+                    document.querySelectorAll('input, textarea, select, button').forEach(function(el) {
                         el.style.transition = 'all 0.2s ease';
-                    }});
-                }}
-            }})();
+                    });
+                }
+            })();
         """
         
         self.web_view.page().runJavaScript(js_code)

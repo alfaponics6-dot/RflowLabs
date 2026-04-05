@@ -11,8 +11,8 @@ An advanced AI coding assistant that lives inside RStudio. Get expert help with 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/carlychery/Rflow}
-  \item Report bugs at \url{https://github.com/carlychery/Rflow/issues}
+  \item \url{https://github.com/carlychery2001/RflowLabs}
+  \item Report bugs at \url{https://github.com/carlychery2001/RflowLabs/issues}
 }
 
 }

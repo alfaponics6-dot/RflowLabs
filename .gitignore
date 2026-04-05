@@ -1,5 +1,15 @@
+# R project files
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
 *.Rproj
+
+# Large source bundles
+R-source/
+
+# Generated documents
+*.docx
+
+# Backup files
+*.backup

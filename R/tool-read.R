@@ -11,12 +11,14 @@ tool_read_text_file <- function() {
       content <- tryCatch(
         paste(readLines(path, warn = FALSE), collapse = "\n"),
         error = function(e) {
-          return(ellmer::ContentToolResult(
-            error = paste0("Error reading file: ", conditionMessage(e))
-          ))
+          return(paste0("Error reading file: ", conditionMessage(e)))
         }
       )
-      
+
+      if (startsWith(content, "Error reading file: ")) {
+        return(ellmer::ContentToolResult(error = content))
+      }
+
       ellmer::ContentToolResult(
         value = content,
         extra = list(

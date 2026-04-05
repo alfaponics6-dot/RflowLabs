@@ -12,9 +12,9 @@
 
 </div>
 
-## ✨ Features
+## Features
 
-### 🎯 Core Capabilities
+### Core Capabilities
 - **AI-Powered Analysis** - Claude Sonnet 4.5 with 1730+ expert training prompts
 - **R Internals Mastery** - Direct access to R 4.5.2 source code for deep understanding
 - **Publication-Level Plots** - 220 prompts dedicated to creating perfect visualizations
@@ -24,27 +24,27 @@
 - **Error Recovery** - Automatic retry logic, graceful timeout handling
 - **Agriculture Analytics** - Random Forest ML for soil, livestock, and crop predictions
 
-### 🚀 Performance
+### Performance
 - **100+ chars/sec streaming** - 5x faster than before
 - **Optimized rendering** - Cached renders, batched updates
 - **Reliable connections** - 3x retry with exponential backoff
 - **5-minute timeout** - No more infinite hangs
 
-### 🎨 User Interface
+### User Interface
 - **Clean Flat Design** - Professional #0066FF blue theme
 - **Terminal-Style Events** - Multiple progress indicators with checkmarks
 - **Quick Action Buttons** - Load Data, Analyze, Plot, Model, Debug, Optimize
 - **Syntax Highlighting** - Beautiful code blocks
 - **Dark/Light Mode** - Toggle between themes
 
-## 📦 Installation
+## Installation
 
-### Method 1: Direct Download (Recommended - Always Works!)
+### Method 1: Direct Download (Recommended)
 
 If you get GitHub API errors, use this method (100% reliable):
 
 ```r
-# ⚠️ COPY ALL LINES BELOW - Includes automatic devtools installation! ⚠️
+# Includes automatic devtools installation
 if (!requireNamespace("devtools", quietly = TRUE)) install.packages("devtools"); options(timeout = 300); download.file("https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip", "Rflow.zip", mode = "wb"); unzip("Rflow.zip"); devtools::install("RflowLabs-main")
 ```
 
@@ -56,7 +56,7 @@ if (!requireNamespace("devtools", quietly = TRUE)) {
   install.packages("devtools")
 }
 
-options(timeout = 300)  # ← CRITICAL: Must include this line!
+options(timeout = 300)  # Extends timeout to 5 minutes
 download.file(
   "https://github.com/carlychery2001/RflowLabs/archive/refs/heads/main.zip",
   "Rflow.zip",
@@ -119,7 +119,7 @@ remotes::install_github("carlychery2001/RflowLabs", dependencies = TRUE)
 remotes::install_github("carlychery2001/RflowLabs", force = TRUE)
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Get Your API Key
 
@@ -167,11 +167,11 @@ start_rflow(launch_in = "browser")
 stop_rflow()
 ```
 
-## 💡 Usage Examples
+## Usage Examples
 
 ### Load and Analyze Data
 
-1. Click the **📎 paperclip** icon to attach your CSV/Excel file
+1. Click the paperclip icon to attach your CSV/Excel file
 2. Click **"Load Data"** button
 3. Rflow will automatically:
    - Load the file into `my_data` variable
@@ -185,12 +185,12 @@ stop_rflow()
 You: "Create a publication-ready scatter plot of mpg vs wt from mtcars"
 
 Rflow will:
-✓ Load mtcars dataset
-✓ Create ggplot2 visualization
-✓ Apply professional theme
-✓ Add proper labels and titles
-✓ Use color-blind safe palette
-✓ Export as 300 DPI PNG
+- Load mtcars dataset
+- Create ggplot2 visualization
+- Apply professional theme
+- Add proper labels and titles
+- Use color-blind safe palette
+- Export as 300 DPI PNG
 ```
 
 ### Build Statistical Models
@@ -199,12 +199,12 @@ Rflow will:
 You: "Build a linear regression model for mpg"
 
 Rflow will:
-✓ Check data availability
-✓ Build lm() model
-✓ Show diagnostics plots
-✓ Report R², p-values, coefficients
-✓ Interpret results
-✓ Save script for reproducibility
+- Check data availability
+- Build lm() model
+- Show diagnostics plots
+- Report R-squared, p-values, coefficients
+- Interpret results
+- Save script for reproducibility
 ```
 
 ### Debug Code
@@ -221,9 +221,9 @@ Click **"Optimize"** to get suggestions for:
 - Parallel processing
 - Memory efficiency
 
-## 🌾 Random Forest for Agriculture Analytics
+## Random Forest for Agriculture Analytics
 
-Rflow now includes specialized Random Forest machine learning tools designed specifically for agriculture applications:
+Rflow includes specialized Random Forest machine learning tools designed for agriculture applications.
 
 ### Soil Analysis
 ```r
@@ -243,7 +243,7 @@ npk_result <- rf_soil_analysis(
 )
 ```
 
-### Poultry & Fish Farming
+### Poultry and Fish Farming
 ```r
 # Forecast egg production
 poultry_data <- generate_ag_data("poultry", n = 250)
@@ -262,7 +262,7 @@ fish_result <- rf_poultry_fish(
 )
 ```
 
-### Crop & Disease Management
+### Crop and Disease Management
 ```r
 # Classify crop diseases
 disease_data <- generate_ag_data("disease", n = 300)
@@ -290,9 +290,9 @@ plot_rf_importance(result, top_n = 8)
 plot_rf_predictions(result)
 ```
 
-**See [RANDOM_FOREST_AGRICULTURE.md](RANDOM_FOREST_AGRICULTURE.md) for complete documentation and examples.**
+**See [docs/random-forest-agriculture.md](docs/random-forest-agriculture.md) for complete documentation and examples.**
 
-## 🎓 Key Commands
+## Key Commands
 
 ### Quick Actions
 - **Load Data** - Upload and load CSV/Excel files
@@ -311,7 +311,7 @@ plot_rf_predictions(result)
 "Optimize this loop: for(i in 1:nrow(df)) {...}"
 ```
 
-## 🔧 Advanced Features
+## Advanced Features
 
 ### Workspace Management
 - Rflow automatically detects your working directory
@@ -330,7 +330,7 @@ plot_rf_predictions(result)
 - Helpful error messages with suggestions
 - Partial responses shown on interruption
 
-## 📊 Expert Training
+## Expert Training
 
 Rflow is powered by **1730 comprehensive training prompts**:
 
@@ -340,9 +340,9 @@ Rflow is powered by **1730 comprehensive training prompts**:
 - **Statistics (1201-1300)** - Bayesian, ML, deep learning
 - **Programming (1301-1400)** - OOP, rlang, async
 - **Shiny (1401-1510)** - Modules, testing, deployment
-- **Publication Plots (1511-1730)** - Perfect plots every time!
+- **Publication Plots (1511-1730)** - Perfect plots every time
 
-## 🔬 R Internals Mastery
+## R Internals Mastery
 
 Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowledge:
 
@@ -365,9 +365,9 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 - "Why does 0.1 + 0.2 != 0.3?" (shows IEEE 754 in arithmetic.c)
 - "How does the $ operator work?" (finds do_subset in subscript.c)
 
-**See R_INTERNALS_GUIDE.md for complete documentation**
+**See [docs/r-internals-guide.md](docs/r-internals-guide.md) for complete documentation.**
 
-## 🎨 Publication Plotting Expertise
+## Publication Plotting Expertise
 
 220 dedicated prompts ensure every plot is publication-ready:
 
@@ -395,7 +395,7 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 - Network graphs
 - Time series visualizations
 
-## 🛠️ Technical Details
+## Technical Details
 
 ### Architecture
 - **Frontend**: Shiny with custom CSS/JavaScript
@@ -416,7 +416,7 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 - Chunked tool calls (<100 lines per file)
 - Graceful error handling with helpful messages
 
-## 📝 Requirements
+## Requirements
 
 - **R >= 4.0**
 - **RStudio**
@@ -431,14 +431,14 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
   - glue
   - jsonlite
 
-## 💰 Billing
+## Billing
 
 You pay Anthropic directly based on API usage:
 - **Claude Sonnet 4.5**: ~$3 per million tokens
 - Typical chat: $0.01-0.05 per interaction
 - See [Anthropic Pricing](https://www.anthropic.com/pricing)
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "API key not found"
 ```r
@@ -454,10 +454,10 @@ Sys.getenv("ANTHROPIC_API_KEY")
 **Most common cause:** Hidden whitespace or formatting characters in your API key
 
 ```r
-# ❌ WRONG - May include hidden characters from copy/paste
+# WRONG - May include hidden characters from copy/paste
 Sys.setenv(ANTHROPIC_API_KEY = " sk-ant-api03-...")  # Leading space
 
-# ✅ CORRECT - Clean, direct assignment
+# CORRECT - Clean, direct assignment
 Sys.setenv(ANTHROPIC_API_KEY = "sk-ant-api03-...")
 ```
 
@@ -490,7 +490,7 @@ start_rflow()
 # Check for errors in R console
 ```
 
-## 🎯 Best Practices
+## Best Practices
 
 1. **Start small** - Load data first, then analyze step-by-step
 2. **Use quick actions** - Faster than typing full prompts
@@ -498,37 +498,35 @@ start_rflow()
 4. **Check data** - Always verify loaded datasets before modeling
 5. **Export plots** - Save publication figures at 300+ DPI
 
-## 📚 Resources
+## Resources
 
 - [Anthropic API Docs](https://docs.anthropic.com/)
 - [ggplot2 Documentation](https://ggplot2.tidyverse.org/)
 - [tidyverse Website](https://www.tidyverse.org/)
 - [R for Data Science](https://r4ds.had.co.nz/)
 
-## 💝 Support Development
+## Support Development
 
-Rflow is free and open source. If it saves you time or helps your research/work, please consider supporting its development:
+Rflow is free and open source. If it saves you time or helps your research, please consider supporting its development:
 
-- ⭐ **Star this repository** - Help others discover Rflow
-- 💵 **Zelle**: `cchery@earth.ac.cr`
-- 💰 **Cash App**: `$CarlyCHERY0`
-- 🐛 **Report bugs** - Help improve Rflow
-- 🤝 **Spread the word** - Share with colleagues
+- **Star this repository** - Help others discover Rflow
+- **Zelle**: `cchery@earth.ac.cr`
+- **Cash App**: `$CarlyCHERY0`
+- **Report bugs** - Help improve Rflow
+- **Spread the word** - Share with colleagues
 
-Your support keeps Rflow maintained and improved. Thank you! 🙏
-
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to:
 - [Report bugs](https://github.com/carlychery2001/RflowLabs/issues)
 - [Request features](https://github.com/carlychery2001/RflowLabs/issues)
 - Submit pull requests
 
-## 📄 License
+## License
 
 MIT License - see [LICENSE](LICENSE) file for details.
 
-## 👤 Author
+## Author
 
 <table>
 <tr>
@@ -539,13 +537,13 @@ MIT License - see [LICENSE](LICENSE) file for details.
 <sub><b>Carly Chery</b></sub>
 </a>
 <br />
-<a href="mailto:cchery@earth.ac.cr">📧 Email</a> •
-<a href="https://github.com/carlychery2001">💻 GitHub</a>
+<a href="mailto:cchery@earth.ac.cr">Email</a> |
+<a href="https://github.com/carlychery2001">GitHub</a>
 </td>
 </tr>
 </table>
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Powered by [Claude Sonnet 4.5](https://www.anthropic.com/claude) from Anthropic
 - Built with [shinychat](https://github.com/posit-dev/shinychat)
@@ -553,7 +551,7 @@ MIT License - see [LICENSE](LICENSE) file for details.
 
 ---
 
-**Built with ❤️ for the R community**
+**Built for the R community**
 
 **Powered by Claude Sonnet 4.5 | 1730 Expert Prompts | R 4.5.2 Source Code | Master-Level R Knowledge**
 

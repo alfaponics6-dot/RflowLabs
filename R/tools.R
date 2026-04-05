@@ -31,38 +31,6 @@ agent_tools <- function(socket_url = NULL) {
   c(
     btw::btw_tools("docs"),
     btw::btw_tools("session"),
-    tools_to_reroute,
-    list(
-      # Add your custom tools here
-      example_tool = tool_example()
-    )
-  )
-}
-
-# Example custom tool
-tool_example <- function() {
-  ellmer::tool(
-    function(message, `_intent` = NULL) {
-      result <- paste("You said:", message)
-      
-      ellmer::ContentToolResult(
-        value = result,
-        extra = list(
-          display = list(
-            markdown = paste0("**Example Tool Result:**\n\n", result),
-            title = "Example Tool",
-            show_request = FALSE,
-            open = TRUE
-          )
-        )
-      )
-    },
-    name = "example_tool",
-    description = "An example tool that echoes back your message. Replace this with your own custom tools.",
-    arguments = list(
-      message = ellmer::type_string("The message to echo back"),
-      `_intent` = ellmer::type_string("Brief description of why you're using this tool", required = FALSE)
-    ),
-    convert = FALSE
+    tools_to_reroute
   )
 }

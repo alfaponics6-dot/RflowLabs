@@ -239,8 +239,13 @@ export_session <- function(session_id, output_file) {
     SELECT * FROM sessions WHERE session_id = ?
   ", params = list(session_id))
 
-  # Get messages
-  messages <- load_session_messages(session_id)
+  # Get messages using the same connection
+  messages <- DBI::dbGetQuery(con, "
+    SELECT message_id, role, content, timestamp, tool_calls, tool_results
+    FROM messages
+    WHERE session_id = ?
+    ORDER BY timestamp ASC
+  ", params = list(session_id))
 
   # Combine into export structure
   export_data <- list(
@@ -283,18 +288,23 @@ import_session <- function(input_file) {
     session$working_dir
   ))
 
-  # Insert messages
+  # Insert messages using the same connection
   messages <- import_data$messages
   if (nrow(messages) > 0) {
+    timestamp <- format(Sys.time(), "%Y-%m-%d %H:%M:%S")
     for (i in 1:nrow(messages)) {
       msg <- messages[i, ]
-      save_message(
-        new_session_id,
-        msg$role,
-        msg$content,
-        msg$tool_calls[[1]],
-        msg$tool_results[[1]]
-      )
+      tool_calls_json <- if (!is.null(msg$tool_calls[[1]])) {
+        jsonlite::toJSON(msg$tool_calls[[1]], auto_unbox = TRUE)
+      } else NULL
+      tool_results_json <- if (!is.null(msg$tool_results[[1]])) {
+        jsonlite::toJSON(msg$tool_results[[1]], auto_unbox = TRUE)
+      } else NULL
+      DBI::dbExecute(con, "
+        INSERT INTO messages (session_id, role, content, timestamp, tool_calls, tool_results)
+        VALUES (?, ?, ?, ?, ?, ?)
+      ", params = list(new_session_id, msg$role, msg$content, timestamp,
+                       tool_calls_json, tool_results_json))
     }
   }
 

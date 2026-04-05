@@ -126,7 +126,7 @@ rf_train <- function(data,
   }
 
   # Set seed
-  set.seed(seed)
+  withr::local_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -342,7 +342,7 @@ rf_soil_analysis <- function(data,
   }
 
   # Set seed
-  set.seed(seed)
+  withr::local_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -537,7 +537,7 @@ rf_poultry_fish <- function(data,
     stop("Target variable '", target, "' not found in data")
   }
 
-  set.seed(seed)
+  withr::local_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -578,7 +578,12 @@ rf_poultry_fish <- function(data,
   rmse <- sqrt(mse)
   mae <- mean(abs(predictions - actual))
   r_squared <- 1 - (sum((actual - predictions)^2) / sum((actual - mean(actual))^2))
-  mape <- mean(abs((actual - predictions) / actual)) * 100
+  nonzero <- actual != 0
+  if (any(nonzero)) {
+    mape <- mean(abs((actual[nonzero] - predictions[nonzero]) / actual[nonzero])) * 100
+  } else {
+    mape <- NA_real_
+  }
 
   performance <- list(
     rmse = rmse,
@@ -695,7 +700,7 @@ rf_agronomy <- function(data,
     stop("Target variable '", target, "' not found in data")
   }
 
-  set.seed(seed)
+  withr::local_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -950,7 +955,7 @@ generate_ag_data <- function(type = c("soil", "poultry", "fish", "disease", "yie
                              seed = 123) {
 
   type <- match.arg(type)
-  set.seed(seed)
+  withr::local_seed(seed)
 
   if (type == "soil") {
     fertility_levels <- factor(rep(c("Low", "Medium", "High"), length.out = n))
