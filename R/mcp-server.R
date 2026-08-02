@@ -112,7 +112,9 @@ mcp_send_error <- function(id, code, msg) {
 mcp_handle_initialize <- function(params) {
   list(
     protocolVersion = "2024-11-05",
-    capabilities    = list(tools = list()),
+    # capabilities.tools MUST serialise to a JSON object, e.g. {"listChanged":false}.
+    # An empty list() would serialise to [] and fail MCP client schema validation.
+    capabilities    = list(tools = list(listChanged = FALSE)),
     serverInfo      = list(
       name    = "rflow",
       version = as.character(utils::packageVersion("Rflow"))

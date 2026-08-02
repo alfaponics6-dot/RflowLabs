@@ -20,7 +20,6 @@ Imports:
     cli,
     jsonlite,
     rappdirs,
-    rlang (>= 1.1.0),
     rstudioapi,
     stats,
     tools,

@@ -43,15 +43,15 @@ uses sqrt(p) for classification or p/3 for regression.}
 }
 \value{
 A list containing:
-  \item{model}{The trained Random Forest model}
-  \item{predictions}{Predictions on test set}
-  \item{actual}{Actual values from test set}
-  \item{performance}{Model performance metrics}
-  \item{importance}{Variable importance scores}
-  \item{test_data}{Test dataset used for evaluation}
-  \item{task_type}{Classification or regression}
-  \item{target}{Target variable name}
-  \item{predictors}{Predictor variable names}
+\item{model}{The trained Random Forest model}
+\item{predictions}{Predictions on test set}
+\item{actual}{Actual values from test set}
+\item{performance}{Model performance metrics}
+\item{importance}{Variable importance scores}
+\item{test_data}{Test dataset used for evaluation}
+\item{task_type}{Classification or regression}
+\item{target}{Target variable name}
+\item{predictors}{Predictor variable names}
 }
 \description{
 Train a Random Forest model on ANY dataset for classification or regression.
@@ -100,4 +100,5 @@ print(result$performance)
 # Example 5: Auto-detect task type
 result <- rf_train(data = your_data, target = "outcome")  # Auto-detects!
 }
+
 }

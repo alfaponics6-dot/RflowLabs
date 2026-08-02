@@ -4,7 +4,11 @@
 \alias{generate_ag_data}
 \title{Generate Agriculture Example Dataset}
 \usage{
-generate_ag_data(type = c("soil", "poultry", "fish", "disease", "yield"), n = 150, seed = 123)
+generate_ag_data(
+  type = c("soil", "poultry", "fish", "disease", "yield"),
+  n = 150,
+  seed = 123
+)
 }
 \arguments{
 \item{type}{Character: "soil", "poultry", "fish", "disease", or "yield"}
@@ -27,4 +31,5 @@ soil_data <- generate_ag_data("soil", n = 200)
 # Generate poultry data
 poultry_data <- generate_ag_data("poultry", n = 150)
 }
+
 }

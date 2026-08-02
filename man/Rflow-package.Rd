@@ -4,9 +4,9 @@
 \name{Rflow-package}
 \alias{Rflow}
 \alias{Rflow-package}
-\title{Rflow: Professional AI Assistant for RStudio}
+\title{Rflow: MCP Server and R Toolkit for Claude Code}
 \description{
-An advanced AI coding assistant that lives inside RStudio. Get expert help with R programming, data analysis, visualization, and statistical modeling through a clean, professional chat interface. Powered by Claude Sonnet 4.5 with 1730+ expert training prompts and direct access to R 4.5.2 source code for deep understanding. Features include: AI-powered analysis, publication-level plots, direct R integration, real-time streaming, smart data loading, and automatic error recovery.
+An MCP (Model Context Protocol) server that gives Claude Code direct access to R. Exposes 16 tools covering R code execution, file analysis, file system operations, R internals search, Random Forest machine learning, and workspace management. No API key required — works with any Claude Code plan including Max subscriptions.
 }
 \seealso{
 Useful links:

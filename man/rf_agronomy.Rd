@@ -75,4 +75,5 @@ result_yield <- rf_agronomy(
   task_type = "regression"
 )
 }
+
 }

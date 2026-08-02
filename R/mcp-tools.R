@@ -31,6 +31,11 @@ mcp_to_text <- function(x) {
 # I() on single-element vectors prevents auto-unboxing to a scalar
 # ---------------------------------------------------------------------------
 
+# jsonlite serialises list() as [] ; a JSON Schema "properties" (or any empty
+# object) must serialise to {}. Use this for tools that take no parameters so
+# MCP clients accept the tools/list payload.
+EMPTY_JSON_OBJECT <- stats::setNames(list(), character(0))
+
 MCP_TOOLS <- list(
 
   list(
@@ -241,7 +246,7 @@ MCP_TOOLS <- list(
     description = "Return the full Rflow workspace context: current folder, open files, folder structure.",
     inputSchema = list(
       type       = "object",
-      properties = list()
+      properties = EMPTY_JSON_OBJECT
     )
   ),
 
@@ -250,7 +255,7 @@ MCP_TOOLS <- list(
     description = "Return a concise human-readable summary of the current Rflow workspace.",
     inputSchema = list(
       type       = "object",
-      properties = list()
+      properties = EMPTY_JSON_OBJECT
     )
   )
 )

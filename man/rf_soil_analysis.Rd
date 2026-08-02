@@ -38,12 +38,12 @@ all numeric variables except target are used.}
 }
 \value{
 A list containing:
-  \item{model}{The trained Random Forest model}
-  \item{predictions}{Predictions on test set}
-  \item{performance}{Model performance metrics}
-  \item{importance}{Variable importance scores}
-  \item{confusion_matrix}{Confusion matrix (for classification)}
-  \item{plot_data}{Data for visualization}
+\item{model}{The trained Random Forest model}
+\item{predictions}{Predictions on test set}
+\item{performance}{Model performance metrics}
+\item{importance}{Variable importance scores}
+\item{confusion_matrix}{Confusion matrix (for classification)}
+\item{plot_data}{Data for visualization}
 }
 \description{
 Apply Random Forest for soil-related predictions including fertility
@@ -75,4 +75,5 @@ result_npk <- rf_soil_analysis(
   task_type = "regression"
 )
 }
+
 }

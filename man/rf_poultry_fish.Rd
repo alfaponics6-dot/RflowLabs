@@ -75,4 +75,5 @@ result_fish <- rf_poultry_fish(
   farm_type = "fish"
 )
 }
+
 }

@@ -9,6 +9,24 @@
 #' @name random-forest-agriculture
 NULL
 
+# ---------------------------------------------------------------------------
+# Internal: reproducible seeding without a hard dependency on 'withr'.
+# Sets the RNG seed for the duration of the calling function and restores the
+# caller's previous global RNG state on exit, so an interactive user's random
+# stream is left untouched (mirrors withr::local_seed()).
+# ---------------------------------------------------------------------------
+local_rng_seed <- function(seed, .local_envir = parent.frame()) {
+  if (exists(".Random.seed", envir = globalenv(), inherits = FALSE)) {
+    old_seed <- get(".Random.seed", envir = globalenv(), inherits = FALSE)
+    restore  <- bquote(assign(".Random.seed", .(old_seed), envir = globalenv()))
+  } else {
+    restore  <- quote(suppressWarnings(rm(".Random.seed", envir = globalenv())))
+  }
+  do.call(base::on.exit, list(restore, add = TRUE), envir = .local_envir)
+  set.seed(seed)
+  invisible(seed)
+}
+
 #' General Purpose Random Forest Model
 #'
 #' @description
@@ -126,7 +144,7 @@ rf_train <- function(data,
   }
 
   # Set seed
-  withr::local_seed(seed)
+  local_rng_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -342,7 +360,7 @@ rf_soil_analysis <- function(data,
   }
 
   # Set seed
-  withr::local_seed(seed)
+  local_rng_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -537,7 +555,7 @@ rf_poultry_fish <- function(data,
     stop("Target variable '", target, "' not found in data")
   }
 
-  withr::local_seed(seed)
+  local_rng_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -700,7 +718,7 @@ rf_agronomy <- function(data,
     stop("Target variable '", target, "' not found in data")
   }
 
-  withr::local_seed(seed)
+  local_rng_seed(seed)
 
   # Select predictors
   if (is.null(predictors)) {
@@ -913,7 +931,7 @@ plot_rf_predictions <- function(rf_result, color = "#1976D2") {
     ggplot2::geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "red", linewidth = 1) +
     ggplot2::labs(
       title = paste("Random Forest Predictions -", rf_result$target),
-      subtitle = sprintf("R² = %.3f, RMSE = %.3f", r_squared, rmse),
+      subtitle = sprintf("R\u00b2 = %.3f, RMSE = %.3f", r_squared, rmse),
       x = "Actual Values",
       y = "Predicted Values"
     ) +
@@ -955,7 +973,7 @@ generate_ag_data <- function(type = c("soil", "poultry", "fish", "disease", "yie
                              seed = 123) {
 
   type <- match.arg(type)
-  withr::local_seed(seed)
+  local_rng_seed(seed)
 
   if (type == "soil") {
     fertility_levels <- factor(rep(c("Low", "Medium", "High"), length.out = n))
