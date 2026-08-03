@@ -204,6 +204,57 @@ devtools::install("RflowLabs-main")
 library(Rflow)
 ```
 
+## Launching the RflowLabs Agentic Assistant
+
+Version 2.1.0 adds `Rflow::start_rflowlabs()`, an interactive coding assistant that runs inside RStudio on your Claude Code subscription (no API key). The ZIP-download methods above still install the package the same way; this section only covers the extra pieces the assistant needs. If you have not installed Rflow yet, use any method above first, then come back here.
+
+### 1. Install the gadget runtime dependencies
+
+The assistant needs three packages beyond the base Rflow install: `shiny`, `processx`, and `later`. (`jsonlite` and `rstudioapi` are already Rflow dependencies, so they are pulled in automatically.) These three live in `Suggests`, which keeps the headless MCP server light and avoids the Shiny transitive tree for users who never launch the gadget. Install them once with a single line:
+
+```r
+install.packages(c("shiny", "processx", "later"))
+```
+
+If they are missing, `start_rflowlabs()` stops with a short message naming exactly what to install, so nothing fails silently.
+
+Note: do not reach for `remotes::install_github(..., dependencies = TRUE)` to get these. That also drags in the heavy analysis suggests (sf, pdftools, officer, ggplot2, randomForest, readxl) that the assistant does not use. The explicit `install.packages()` line above is lighter and intentional.
+
+### 2. Install and log in to the Claude Code CLI (subscription, no API key)
+
+The assistant spawns the `claude` command-line tool and streams from it, so the CLI must be installed and signed in on a Claude subscription. There is no API key anywhere in this flow.
+
+Verify from a terminal (not the R console):
+
+```bash
+claude auth status
+```
+
+A logged-in subscription account prints your account and plan. If it reports that you are not authenticated, run `claude` once and complete the browser login before launching the assistant. Install instructions for the CLI itself live at the Claude Code docs.
+
+### 3. Run inside RStudio only
+
+`start_rflowlabs()` is an RStudio gadget. It uses the RStudio viewer, the Plots pane, and the Environment, and it runs the assistant's R code in your live session. Launch it from the RStudio console, not from a plain R terminal, VS Code, or a headless `Rscript` process.
+
+### 4. Launch
+
+```r
+library(Rflow)
+start_rflowlabs()
+```
+
+`start_agent()` is the same entry point under its original name, so `Rflow::start_agent()` works identically if you prefer it. To open in an external browser instead of the RStudio viewer pane, pass `browser = TRUE`.
+
+### Zero-install quick try
+
+To try the assistant without installing the Rflow package (you still need `shiny`, `processx`, `later`, and `jsonlite` installed, plus the logged-in `claude` CLI), source the script straight from GitHub and launch:
+
+```r
+source("https://raw.githubusercontent.com/alfaponics6-dot/RflowLabs/main/inst/rstudio_agent.R"); start_rflowlabs()
+```
+
+This path does not register the help pages and is meant only as a quick look. For everyday use, install the package (any method above) and call `Rflow::start_rflowlabs()`.
+
 ---
 
 **Questions?** Email: cchery@earth.ac.cr

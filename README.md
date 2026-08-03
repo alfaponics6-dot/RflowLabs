@@ -2,15 +2,64 @@
 
 <img src="images/logo.png" width="200" alt="Rflow Logo">
 
-# Rflow — MCP Server and R Toolkit for Claude Code
+# Rflow: MCP Server and R Toolkit for Claude Code
 
-**Rflow** is an MCP (Model Context Protocol) server that gives Claude Code direct access to R. Drop a `.mcp.json` in your project and Claude Code gains 16 R tools — code execution, file analysis, Random Forest ML, R internals search, and more. No API key needed.
+**Rflow** is an MCP (Model Context Protocol) server that gives Claude Code direct access to R. Drop a `.mcp.json` in your project and Claude Code gains 16 R tools: code execution, file analysis, Random Forest ML, R internals search, and more. No API key needed.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![R Version](https://img.shields.io/badge/R-%E2%89%A5%204.0.0-blue)](https://www.r-project.org/)
 [![GitHub Stars](https://img.shields.io/github/stars/alfaponics6-dot/RflowLabs?style=social)](https://github.com/alfaponics6-dot/RflowLabs/stargazers)
 
 </div>
+
+## RflowLabs: Agentic Coding Assistant for RStudio
+
+> New in v2.1.0.
+
+**RflowLabs** is an agentic coding assistant that runs as a Shiny gadget inside RStudio, powered by your **Claude Code subscription** (no API key). It writes and edits files, then runs R **in your live RStudio session**, so plots render in the Plots pane and objects land in your Environment while the code and output stream into the gadget.
+
+### Install and launch
+
+```r
+if (!requireNamespace("remotes", quietly = TRUE)) install.packages("remotes")
+remotes::install_github("alfaponics6-dot/RflowLabs")
+install.packages(c("shiny", "processx", "later"))   # gadget deps (Suggests)
+Rflow::start_rflowlabs()                            # or Rflow::start_agent()
+```
+
+`start_rflowlabs()` operates in `getwd()`. Pass a project folder or a model if you like:
+
+```r
+Rflow::start_rflowlabs("C:/path/to/project")
+Rflow::start_rflowlabs(model = "opus")   # sonnet (default) / opus / haiku
+```
+
+### Zero-install quick-try
+
+To try it without installing the package, source the standalone script straight from GitHub (this still needs `shiny`, `processx`, `later`, and `jsonlite` installed):
+
+```r
+install.packages(c("shiny", "processx", "later", "jsonlite"))
+source("https://raw.githubusercontent.com/alfaponics6-dot/RflowLabs/main/inst/rstudio_agent.R")
+start_rflowlabs()
+```
+
+### Prerequisites
+
+- **RStudio** (the gadget runs in the RStudio viewer and drives your live session).
+- **Claude Code CLI** installed and logged in on your subscription. No Anthropic API key: the gadget strips `ANTHROPIC_API_KEY` and authenticates through the CLI login, so usage counts against your Claude plan (not metered API billing).
+- **R packages**: `shiny`, `processx`, `later` (plus `jsonlite` and `rstudioapi`, already required by Rflow).
+
+### What it does
+
+- **Subscription, no key**: runs on your Claude Code login, so there is nothing to meter and no key to manage.
+- **Live session**: runs the agent's R in your actual RStudio session, so plots appear in the Plots pane and variables appear in the Environment as they are created.
+- **Streams as it works**: tokens, tool calls (Write, run R), and output stream into the gadget in real time.
+- **Edits and opens files in RStudio**: creates and modifies files, tracks what changed each turn, and opens them in the editor (via `rstudioapi`).
+
+### The MCP server still works
+
+This is an addition, not a replacement. The headless MCP server path is unchanged: existing `.mcp.json` setups that call `Rflow::start_mcp_server()`, along with `library(Rflow)` and every RF / workspace tool, keep working exactly as before. The gadget dependencies live in Suggests, so headless and MCP-only installs stay lightweight.
 
 ## Features
 
@@ -121,7 +170,7 @@ remotes::install_github("alfaponics6-dot/RflowLabs", force = TRUE)
 }
 ```
 
-**2. Start Claude Code in that folder** — it auto-detects the file and loads all 16 R tools. Done.
+**2. Start Claude Code in that folder**, it auto-detects the file and loads all 16 R tools. Done.
 
 
 ## Usage Examples
@@ -210,13 +259,13 @@ plot_rf_predictions(result)
 
 **See [docs/random-forest-agriculture.md](docs/random-forest-agriculture.md) for complete documentation and examples.**
 
-## MCP Server — Use Rflow from Claude Code (No API Key)
+## MCP Server: Use Rflow from Claude Code (No API Key)
 
 Rflow includes a full **Model Context Protocol (MCP) server** that exposes all 16 R tools directly to Claude Code. Users on a Claude Max subscription can use every Rflow capability without ever setting up an Anthropic API key.
 
 ### Setup (2 steps)
 
-**Step 1 — Create `.mcp.json` in your project root:**
+**Step 1: Create `.mcp.json` in your project root:**
 
 ```json
 {
@@ -229,7 +278,7 @@ Rflow includes a full **Model Context Protocol (MCP) server** that exposes all 1
 }
 ```
 
-**Step 2 — Start Claude Code in that folder.** It auto-discovers `.mcp.json` and loads all tools.
+**Step 2: Start Claude Code in that folder.** It auto-discovers `.mcp.json` and loads all tools.
 
 That's it. Claude Code now has full access to R through Rflow.
 
@@ -256,7 +305,7 @@ Claude Code  <--stdin/stdout JSON-RPC-->  Rscript -e "Rflow::start_mcp_server()"
 |------|-----------|-------------|
 | `read_text_file` | `path` | Read the full contents of any text file |
 | `write_text_file` | `path`, `content` | Write or overwrite a file; parent directories created automatically |
-| `analyze_file` | `file_path` | Smart file analysis — CSV, Excel, JSON, RDS, RData, R scripts, PDF, Word, images, shapefiles, and plain text |
+| `analyze_file` | `file_path` | Smart file analysis: CSV, Excel, JSON, RDS, RData, R scripts, PDF, Word, images, shapefiles, and plain text |
 
 #### File System
 
@@ -287,8 +336,8 @@ Claude Code  <--stdin/stdout JSON-RPC-->  Rscript -e "Rflow::start_mcp_server()"
 
 | Tool | Parameters | Description |
 |------|-----------|-------------|
-| `get_workspace_context` | — | Full workspace context: current folder, open files, folder structure |
-| `get_workspace_summary` | — | Concise human-readable workspace summary |
+| `get_workspace_context` | (none) | Full workspace context: current folder, open files, folder structure |
+| `get_workspace_summary` | (none) | Concise human-readable workspace summary |
 
 ### Example: Train a model from Claude Code
 
@@ -301,7 +350,7 @@ Once `.mcp.json` is in place, just ask Claude Code:
 "Search the R source for how do_subset is implemented"
 ```
 
-Claude Code dispatches to Rflow automatically — no copy-pasting, no switching apps.
+Claude Code dispatches to Rflow automatically, no copy-pasting, no switching apps.
 
 ---
 
@@ -353,17 +402,17 @@ Rflow has **direct access to R 4.5.2 source code** for unprecedented deep knowle
 ### MCP server not detected
 - Make sure `.mcp.json` is in the **project root** (same folder Claude Code opens)
 - Verify Rflow is installed: `library(Rflow)` in R should work without errors
-- Try running `Rscript -e "Rflow::start_mcp_server()"` manually — any startup error will print to the console
+- Try running `Rscript -e "Rflow::start_mcp_server()"` manually, any startup error will print to the console
 
 ### Tool returns an error
-- The error message is returned as the tool result — Claude Code will show it
+- The error message is returned as the tool result, Claude Code will show it
 - Run the same code in a plain R session to debug directly
 
 ## Best Practices
 
 1. **Use `run_r_code` with `persist=true`** to build up objects across calls
-2. **Use `analyze_file`** before working with a dataset — it loads the data into R automatically
-3. **Plots are saved to temp files** — ask Claude Code to show you the path or copy it somewhere
+2. **Use `analyze_file`** before working with a dataset, it loads the data into R automatically
+3. **Plots are saved to temp files**, ask Claude Code to show you the path or copy it somewhere
 4. **Use `get_workspace_summary`** to orient Claude Code to your project structure
 
 ## Resources

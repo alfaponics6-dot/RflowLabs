@@ -6,7 +6,7 @@
 \alias{Rflow-package}
 \title{Rflow: MCP Server and R Toolkit for Claude Code}
 \description{
-An MCP (Model Context Protocol) server that gives Claude Code direct access to R. Exposes 16 tools covering R code execution, file analysis, file system operations, R internals search, Random Forest machine learning, and workspace management. No API key required — works with any Claude Code plan including Max subscriptions.
+An MCP (Model Context Protocol) server that gives Claude Code direct access to R. Exposes 16 tools covering R code execution, file analysis, file system operations, R internals search, Random Forest machine learning, and workspace management. Also ships RflowLabs, an agentic coding assistant Shiny gadget for RStudio launched with start_rflowlabs(). No API key required (works with any Claude Code plan, including Max subscriptions).
 }
 \seealso{
 Useful links:
